@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function validateUserId(userId) {
         // Customer ID must be 9-10 digits
-        const userIdRegex = /^\d{9,10}$/;
+        const userIdRegex = /^\d{8,9,10}$/;
         return userIdRegex.test(userId);
     }
     
