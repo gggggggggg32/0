@@ -1,0 +1,44 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+width="48"
+height="48"
+viewBox="0 0 48 48">
+  <defs>
+    <symbol id="Icon-pdf">
+        
+  <title class="" style="">Icon</title>
+  <path d="M43,22H38V16a1,1,0,0,0-.293-0.707l-9-9A1,1,0,0,0,27,7v9a1,1,0,0,0,1,1h8v5H16a1,1,0,0,0-1,1V35a1,1,0,0,0,1,1H36v4H12V8H25V6H11a1,1,0,0,0-1,1V41a1,1,0,0,0,1,1H37a1,1,0,0,0,1-1V36h5a1,1,0,0,0,1-1V23A1,1,0,0,0,43,22ZM29,15V9.414L34.586,15H29ZM42,34H17V24H42V34Z"  class="" style=""/>
+  <g class="" style="">
+    <path d="M23.358,25.813a2.675,2.675,0,0,1,1.026.175,1.918,1.918,0,0,1,.688.463,1.787,1.787,0,0,1,.387.657,2.445,2.445,0,0,1,0,1.525,1.778,1.778,0,0,1-.387.662,1.918,1.918,0,0,1-.688.463,2.675,2.675,0,0,1-1.026.175H21.874v2.3H20.461V25.813h2.9Zm-0.387,3.024A2.963,2.963,0,0,0,23.44,28.8a1.081,1.081,0,0,0,.4-0.14,0.76,0.76,0,0,0,.274-0.292,1.235,1.235,0,0,0,0-.99,0.76,0.76,0,0,0-.274-0.293,1.092,1.092,0,0,0-.4-0.14,2.963,2.963,0,0,0-.468-0.036h-1.1v1.926h1.1Z"  class="" style=""/>
+    <path d="M29.91,25.813a3.317,3.317,0,0,1,1.157.2,2.507,2.507,0,0,1,.927.594,2.747,2.747,0,0,1,.612.99,4.019,4.019,0,0,1,.22,1.4,4.447,4.447,0,0,1-.18,1.3,2.867,2.867,0,0,1-.544,1.026,2.563,2.563,0,0,1-.909.679,3.078,3.078,0,0,1-1.283.248H27.139V25.813H29.91Zm-0.1,5.238a1.8,1.8,0,0,0,.594-0.1,1.3,1.3,0,0,0,.514-0.329,1.651,1.651,0,0,0,.359-0.6,2.634,2.634,0,0,0,.136-0.9,3.776,3.776,0,0,0-.095-0.878,1.765,1.765,0,0,0-.31-0.67,1.38,1.38,0,0,0-.571-0.427A2.284,2.284,0,0,0,29.56,27H28.552v4.05h1.26Z"  class="" style=""/>
+    <path d="M39,25.813V27H35.9v1.485h2.69v1.1H35.9v2.655H34.482V25.813H39Z"  class="" style=""/>
+  </g>
+
+    </symbol>
+  </defs>
+    <view id="default" viewBox="0 0 48 48"></view>
+    <use data-variant="default" xlink:href="#Icon-pdf" x="0" y="0" fill="#004346" />
+    <view id="primary" viewBox="0 48 48 48"></view>
+    <use data-variant="primary" xlink:href="#Icon-pdf" x="0" y="48" fill="#FFCD05" />
+    <view id="secondary" viewBox="0 96 48 48"></view>
+    <use data-variant="secondary" xlink:href="#Icon-pdf" x="0" y="96" fill="#478081" />
+    <view id="dark" viewBox="0 144 48 48"></view>
+    <use data-variant="dark" xlink:href="#Icon-pdf" x="0" y="144" fill="#004346" />
+    <view id="light" viewBox="0 192 48 48"></view>
+    <use data-variant="light" xlink:href="#Icon-pdf" x="0" y="192" fill="#FFFFFF" />
+    <view id="correct" viewBox="0 240 48 48"></view>
+    <use data-variant="correct" xlink:href="#Icon-pdf" x="0" y="240" fill="#00928A" />
+    <view id="error" viewBox="0 288 48 48"></view>
+    <use data-variant="error" xlink:href="#Icon-pdf" x="0" y="288" fill="#BD1903" />
+    <view id="text" viewBox="0 336 48 48"></view>
+    <use data-variant="text" xlink:href="#Icon-pdf" x="0" y="336" fill="#000000" />
+    <view id="neutral" viewBox="0 384 48 48"></view>
+    <use data-variant="neutral" xlink:href="#Icon-pdf" x="0" y="384" fill="#F5F3F1" />
+    <view id="highlight" viewBox="0 432 48 48"></view>
+    <use data-variant="highlight" xlink:href="#Icon-pdf" x="0" y="432" fill="#FF6400" />
+    <view id="border" viewBox="0 480 48 48"></view>
+    <use data-variant="border" xlink:href="#Icon-pdf" x="0" y="480" fill="#cdcbc3" />
+    <view id="disabled" viewBox="0 528 48 48"></view>
+    <use data-variant="disabled" xlink:href="#Icon-pdf" x="0" y="528" fill="#737373" />
+</svg>

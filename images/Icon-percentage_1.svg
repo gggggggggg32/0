@@ -1,0 +1,46 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+width="48"
+height="48"
+viewBox="0 0 48 48">
+  <defs>
+    <symbol id="Icon-percentage">
+        
+  <title class="" style="">Icon</title>
+  <g class="" style="">
+    <g class="" style="">
+      <path d="M24,42A18,18,0,1,1,42,24,18.021,18.021,0,0,1,24,42ZM24,8.25A15.75,15.75,0,1,0,39.75,24,15.768,15.768,0,0,0,24,8.25Z"  class="" style=""/>
+      <path d="M28.675,15h2.5L19.478,33h-2.5Z"  class="" style=""/>
+    </g>
+    <path d="M18.832,15A3.657,3.657,0,0,0,15,18.942a3.643,3.643,0,0,0,3.832,3.963,3.7,3.7,0,0,0,3.876-3.963A3.669,3.669,0,0,0,18.832,15ZM18.81,21.044c-0.92,0-1.467-.7-1.467-2.1,0-1.446.547-2.124,1.467-2.124s1.511,0.723,1.511,2.124S19.73,21.044,18.81,21.044Z"  class="" style=""/>
+    <path d="M29.146,25.1a3.647,3.647,0,0,0-3.832,3.941A3.644,3.644,0,0,0,29.146,33,3.681,3.681,0,0,0,33,29.037,3.652,3.652,0,0,0,29.146,25.1Zm-0.021,6.044c-0.942,0-1.49-.7-1.49-2.1,0-1.445.548-2.124,1.49-2.124,0.9,0,1.511.722,1.511,2.124S30.023,31.139,29.125,31.139Z"  class="" style=""/>
+  </g>
+
+    </symbol>
+  </defs>
+    <view id="default" viewBox="0 0 48 48"></view>
+    <use data-variant="default" xlink:href="#Icon-percentage" x="0" y="0" fill="#004346" />
+    <view id="primary" viewBox="0 48 48 48"></view>
+    <use data-variant="primary" xlink:href="#Icon-percentage" x="0" y="48" fill="#FFCD05" />
+    <view id="secondary" viewBox="0 96 48 48"></view>
+    <use data-variant="secondary" xlink:href="#Icon-percentage" x="0" y="96" fill="#478081" />
+    <view id="dark" viewBox="0 144 48 48"></view>
+    <use data-variant="dark" xlink:href="#Icon-percentage" x="0" y="144" fill="#004346" />
+    <view id="light" viewBox="0 192 48 48"></view>
+    <use data-variant="light" xlink:href="#Icon-percentage" x="0" y="192" fill="#FFFFFF" />
+    <view id="correct" viewBox="0 240 48 48"></view>
+    <use data-variant="correct" xlink:href="#Icon-percentage" x="0" y="240" fill="#00928A" />
+    <view id="error" viewBox="0 288 48 48"></view>
+    <use data-variant="error" xlink:href="#Icon-percentage" x="0" y="288" fill="#BD1903" />
+    <view id="text" viewBox="0 336 48 48"></view>
+    <use data-variant="text" xlink:href="#Icon-percentage" x="0" y="336" fill="#000000" />
+    <view id="neutral" viewBox="0 384 48 48"></view>
+    <use data-variant="neutral" xlink:href="#Icon-percentage" x="0" y="384" fill="#F5F3F1" />
+    <view id="highlight" viewBox="0 432 48 48"></view>
+    <use data-variant="highlight" xlink:href="#Icon-percentage" x="0" y="432" fill="#FF6400" />
+    <view id="border" viewBox="0 480 48 48"></view>
+    <use data-variant="border" xlink:href="#Icon-percentage" x="0" y="480" fill="#cdcbc3" />
+    <view id="disabled" viewBox="0 528 48 48"></view>
+    <use data-variant="disabled" xlink:href="#Icon-percentage" x="0" y="528" fill="#737373" />
+</svg>

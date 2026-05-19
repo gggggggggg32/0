@@ -1,0 +1,46 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+width="48"
+height="48"
+viewBox="0 0 48 48">
+  <defs>
+    <symbol id="Icon-personalLoan">
+        
+  <title class="" style="">Icon</title>
+  <g class="" style="">
+    <path d="M43.733,24.319a1,1,0,0,0-1.414-.052L28.606,37H12a1,1,0,0,0-.555.168L5.335,41.227,6.281,43,12.3,39H29a1,1,0,0,0,.681-0.268l14-13A1,1,0,0,0,43.733,24.319Z"  class="" style=""/>
+    <path d="M33,14a5,5,0,1,1-5,5,5.006,5.006,0,0,1,5-5m0-2a7,7,0,1,0,7,7,7.008,7.008,0,0,0-7-7h0Z"  class="" style=""/>
+    <path d="M32.526,23.2V22.181a2.058,2.058,0,0,1-2.067-1.949l1.163-.285a1.215,1.215,0,0,0,1.323,1.15,0.813,0.813,0,0,0,.976-0.713,0.745,0.745,0,0,0-.715-0.676l-0.876-.19A1.824,1.824,0,0,1,30.7,17.731a1.986,1.986,0,0,1,1.828-1.911V14.8h1.05v1.046a1.982,1.982,0,0,1,1.63,1.6L34,17.778a1.043,1.043,0,0,0-1.1-.886,0.828,0.828,0,0,0-.95.742,0.683,0.683,0,0,0,.652.637l0.864,0.2a1.968,1.968,0,0,1,1.811,1.836,1.934,1.934,0,0,1-1.7,1.864V23.2h-1.05Z"  class="" style=""/>
+    <path d="M19,6a5,5,0,1,1-5,5,5.006,5.006,0,0,1,5-5m0-2a7,7,0,1,0,7,7,7.008,7.008,0,0,0-7-7h0Z"  class="" style=""/>
+    <path d="M18.526,15.2V14.181a2.058,2.058,0,0,1-2.067-1.949l1.163-.285a1.215,1.215,0,0,0,1.323,1.15,0.813,0.813,0,0,0,.976-0.713,0.745,0.745,0,0,0-.715-0.676l-0.876-.19A1.824,1.824,0,0,1,16.7,9.731a1.986,1.986,0,0,1,1.828-1.911V6.8h1.05V7.847a1.982,1.982,0,0,1,1.63,1.6L20,9.778a1.043,1.043,0,0,0-1.1-.886,0.828,0.828,0,0,0-.95.742,0.683,0.683,0,0,0,.652.637l0.864,0.2a1.968,1.968,0,0,1,1.811,1.836,1.934,1.934,0,0,1-1.7,1.864V15.2h-1.05Z"  class="" style=""/>
+    <path d="M4.046,35.122L2.954,33.447l3.213-2.1C6.624,30.191,8.394,27,14,27H25c2.626,0,4,1.761,4,3.5S27.626,34,25,34H18V32h7c1.381,0,2-.753,2-1.5S26.381,29,25,29H14c-5.084,0-6,3.12-6.033,3.253a1.028,1.028,0,0,1-.421.585Z"  class="" style=""/>
+  </g>
+
+    </symbol>
+  </defs>
+    <view id="default" viewBox="0 0 48 48"></view>
+    <use data-variant="default" xlink:href="#Icon-personalLoan" x="0" y="0" fill="#004346" />
+    <view id="primary" viewBox="0 48 48 48"></view>
+    <use data-variant="primary" xlink:href="#Icon-personalLoan" x="0" y="48" fill="#FFCD05" />
+    <view id="secondary" viewBox="0 96 48 48"></view>
+    <use data-variant="secondary" xlink:href="#Icon-personalLoan" x="0" y="96" fill="#478081" />
+    <view id="dark" viewBox="0 144 48 48"></view>
+    <use data-variant="dark" xlink:href="#Icon-personalLoan" x="0" y="144" fill="#004346" />
+    <view id="light" viewBox="0 192 48 48"></view>
+    <use data-variant="light" xlink:href="#Icon-personalLoan" x="0" y="192" fill="#FFFFFF" />
+    <view id="correct" viewBox="0 240 48 48"></view>
+    <use data-variant="correct" xlink:href="#Icon-personalLoan" x="0" y="240" fill="#00928A" />
+    <view id="error" viewBox="0 288 48 48"></view>
+    <use data-variant="error" xlink:href="#Icon-personalLoan" x="0" y="288" fill="#BD1903" />
+    <view id="text" viewBox="0 336 48 48"></view>
+    <use data-variant="text" xlink:href="#Icon-personalLoan" x="0" y="336" fill="#000000" />
+    <view id="neutral" viewBox="0 384 48 48"></view>
+    <use data-variant="neutral" xlink:href="#Icon-personalLoan" x="0" y="384" fill="#F5F3F1" />
+    <view id="highlight" viewBox="0 432 48 48"></view>
+    <use data-variant="highlight" xlink:href="#Icon-personalLoan" x="0" y="432" fill="#FF6400" />
+    <view id="border" viewBox="0 480 48 48"></view>
+    <use data-variant="border" xlink:href="#Icon-personalLoan" x="0" y="480" fill="#cdcbc3" />
+    <view id="disabled" viewBox="0 528 48 48"></view>
+    <use data-variant="disabled" xlink:href="#Icon-personalLoan" x="0" y="528" fill="#737373" />
+</svg>

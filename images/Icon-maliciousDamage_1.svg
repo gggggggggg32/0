@@ -1,0 +1,59 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+width="48"
+height="48"
+viewBox="0 0 48 48">
+  <defs>
+    <symbol id="Icon-maliciousDamage">
+        
+  <title class="" style="">Icon</title>
+  <g class="" style="">
+    <path d="M28.759,23.349L23,16.63V10a1,1,0,0,0-1-1H17a1,1,0,0,0-1,1v6.63l-5.76,6.719,0.01,0.008A0.982,0.982,0,0,0,10,24V44h2V35h6v9h2V34a1,1,0,0,0-1-1H12V25H27V44h2V24a0.984,0.984,0,0,0-.25-0.644ZM17.459,18H21.54l4.286,5H13.174ZM18,11h3v5H18V11Z"  class="" style=""/>
+    <path d="M26,14a1.036,1.036,0,0,0,.71-0.29,1,1,0,1,0-1.42,0A1.033,1.033,0,0,0,26,14Z"  class="" style=""/>
+    <circle cx="29.2" cy="13" r="1"  class="" style=""/>
+    <circle cx="32.399" cy="13" r="1"  class="" style=""/>
+    <circle cx="35.6" cy="13" r="1"  class="" style=""/>
+    <circle cx="38.8" cy="13" r="1"  class="" style=""/>
+    <path d="M42.71,12.29a1.047,1.047,0,0,0-1.42,0,1.014,1.014,0,0,0,0,1.42A1.053,1.053,0,0,0,42,14a1.013,1.013,0,0,0,.7-0.29A1,1,0,0,0,43,13,1.053,1.053,0,0,0,42.71,12.29Z"  class="" style=""/>
+    <path d="M26,17a0.99,0.99,0,1,0-.71-0.29A1.055,1.055,0,0,0,26,17Z"  class="" style=""/>
+    <path d="M29.14,16.06a1,1,0,1,0-.68,1.88,1.008,1.008,0,0,0,.34.06A1,1,0,0,0,29.14,16.06Z"  class="" style=""/>
+    <path d="M34.74,18.06a1,1,0,0,0-.681,1.88,1.016,1.016,0,0,0,.34.06A1,1,0,0,0,34.74,18.06Z"  class="" style=""/>
+    <path d="M37.53,19.06a1,1,0,0,0-.671,1.88A1.018,1.018,0,0,0,37.2,21,1,1,0,0,0,37.53,19.06Z"  class="" style=""/>
+    <path d="M31.939,17.06a1,1,0,0,0-.68,1.88,1.016,1.016,0,0,0,.34.06A1,1,0,0,0,31.939,17.06Z"  class="" style=""/>
+    <path d="M39.29,20.29A1.048,1.048,0,0,0,39,21a0.99,0.99,0,0,0,1,1,1.055,1.055,0,0,0,.71-0.29A1.035,1.035,0,0,0,41,21,1,1,0,0,0,39.29,20.29Z"  class="" style=""/>
+    <path d="M26,11a1,1,0,0,0,.71-1.71,1,1,0,0,0-1.42,1.42A1.053,1.053,0,0,0,26,11Z"  class="" style=""/>
+    <path d="M37.2,7a0.963,0.963,0,0,0,.33-0.06A0.987,0.987,0,1,0,37.2,7Z"  class="" style=""/>
+    <path d="M34.4,8a1.062,1.062,0,0,0,.341-0.06,1,1,0,0,0-.681-1.88,0.986,0.986,0,0,0-.6,1.269A1,1,0,0,0,34.4,8Z"  class="" style=""/>
+    <path d="M31.6,9a1.057,1.057,0,0,0,.34-0.06A1,1,0,1,0,31.6,9Z"  class="" style=""/>
+    <path d="M28.8,10a1.056,1.056,0,0,0,.34-0.06A1,1,0,1,0,28.8,10Z"  class="" style=""/>
+    <path d="M40,6a0.99,0.99,0,0,0,1-1,1,1,0,1,0-1.71.71A1.033,1.033,0,0,0,40,6Z"  class="" style=""/>
+  </g>
+
+    </symbol>
+  </defs>
+    <view id="default" viewBox="0 0 48 48"></view>
+    <use data-variant="default" xlink:href="#Icon-maliciousDamage" x="0" y="0" fill="#004346" />
+    <view id="primary" viewBox="0 48 48 48"></view>
+    <use data-variant="primary" xlink:href="#Icon-maliciousDamage" x="0" y="48" fill="#FFCD05" />
+    <view id="secondary" viewBox="0 96 48 48"></view>
+    <use data-variant="secondary" xlink:href="#Icon-maliciousDamage" x="0" y="96" fill="#478081" />
+    <view id="dark" viewBox="0 144 48 48"></view>
+    <use data-variant="dark" xlink:href="#Icon-maliciousDamage" x="0" y="144" fill="#004346" />
+    <view id="light" viewBox="0 192 48 48"></view>
+    <use data-variant="light" xlink:href="#Icon-maliciousDamage" x="0" y="192" fill="#FFFFFF" />
+    <view id="correct" viewBox="0 240 48 48"></view>
+    <use data-variant="correct" xlink:href="#Icon-maliciousDamage" x="0" y="240" fill="#00928A" />
+    <view id="error" viewBox="0 288 48 48"></view>
+    <use data-variant="error" xlink:href="#Icon-maliciousDamage" x="0" y="288" fill="#BD1903" />
+    <view id="text" viewBox="0 336 48 48"></view>
+    <use data-variant="text" xlink:href="#Icon-maliciousDamage" x="0" y="336" fill="#000000" />
+    <view id="neutral" viewBox="0 384 48 48"></view>
+    <use data-variant="neutral" xlink:href="#Icon-maliciousDamage" x="0" y="384" fill="#F5F3F1" />
+    <view id="highlight" viewBox="0 432 48 48"></view>
+    <use data-variant="highlight" xlink:href="#Icon-maliciousDamage" x="0" y="432" fill="#FF6400" />
+    <view id="border" viewBox="0 480 48 48"></view>
+    <use data-variant="border" xlink:href="#Icon-maliciousDamage" x="0" y="480" fill="#cdcbc3" />
+    <view id="disabled" viewBox="0 528 48 48"></view>
+    <use data-variant="disabled" xlink:href="#Icon-maliciousDamage" x="0" y="528" fill="#737373" />
+</svg>

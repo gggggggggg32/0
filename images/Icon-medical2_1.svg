@@ -1,0 +1,39 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+width="48"
+height="48"
+viewBox="0 0 48 48">
+  <defs>
+    <symbol id="Icon-medical2">
+        
+  <title class="" style="">Icon</title>
+  <path d="M43,24a4,4,0,1,0-5.217,3.791C37.07,31.544,34.4,39,27,39a9.454,9.454,0,0,1-8.862-5.585,21.371,21.371,0,0,1-2.113-8.479C19.352,24.523,25,21.792,25,8a1,1,0,0,0-1-1H19V9h3.987C22.864,13.891,21.728,23,15,23S7.136,13.891,7.013,9H11V7H6A1,1,0,0,0,5,8c0,13.856,5.7,16.549,9.021,16.941C14.282,31.319,17.231,41,27,41c8.985,0,12.033-8.769,12.79-13.08A4,4,0,0,0,43,24Zm-4,2a2,2,0,1,1,2-2A2,2,0,0,1,39,26Z"  class="" style=""/>
+
+    </symbol>
+  </defs>
+    <view id="default" viewBox="0 0 48 48"></view>
+    <use data-variant="default" xlink:href="#Icon-medical2" x="0" y="0" fill="#004346" />
+    <view id="primary" viewBox="0 48 48 48"></view>
+    <use data-variant="primary" xlink:href="#Icon-medical2" x="0" y="48" fill="#FFCD05" />
+    <view id="secondary" viewBox="0 96 48 48"></view>
+    <use data-variant="secondary" xlink:href="#Icon-medical2" x="0" y="96" fill="#478081" />
+    <view id="dark" viewBox="0 144 48 48"></view>
+    <use data-variant="dark" xlink:href="#Icon-medical2" x="0" y="144" fill="#004346" />
+    <view id="light" viewBox="0 192 48 48"></view>
+    <use data-variant="light" xlink:href="#Icon-medical2" x="0" y="192" fill="#FFFFFF" />
+    <view id="correct" viewBox="0 240 48 48"></view>
+    <use data-variant="correct" xlink:href="#Icon-medical2" x="0" y="240" fill="#00928A" />
+    <view id="error" viewBox="0 288 48 48"></view>
+    <use data-variant="error" xlink:href="#Icon-medical2" x="0" y="288" fill="#BD1903" />
+    <view id="text" viewBox="0 336 48 48"></view>
+    <use data-variant="text" xlink:href="#Icon-medical2" x="0" y="336" fill="#000000" />
+    <view id="neutral" viewBox="0 384 48 48"></view>
+    <use data-variant="neutral" xlink:href="#Icon-medical2" x="0" y="384" fill="#F5F3F1" />
+    <view id="highlight" viewBox="0 432 48 48"></view>
+    <use data-variant="highlight" xlink:href="#Icon-medical2" x="0" y="432" fill="#FF6400" />
+    <view id="border" viewBox="0 480 48 48"></view>
+    <use data-variant="border" xlink:href="#Icon-medical2" x="0" y="480" fill="#cdcbc3" />
+    <view id="disabled" viewBox="0 528 48 48"></view>
+    <use data-variant="disabled" xlink:href="#Icon-medical2" x="0" y="528" fill="#737373" />
+</svg>

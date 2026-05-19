@@ -1,0 +1,45 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+width="48"
+height="48"
+viewBox="0 0 48 48">
+  <defs>
+    <symbol id="Icon-termDeposit">
+        
+  <title class="" style="">Icon</title>
+  <g class="" style="">
+    <path d="M37,33V31.185a3.942,3.942,0,0,1-3.414-3.163l2.107-.461a2.107,2.107,0,0,0,2.344,1.866c1.074,0,1.717-.48,1.717-1.158a1.237,1.237,0,0,0-1.23-1.094l-1.517-.309C35.221,26.5,34,25.447,34,23.966c0-1.633,1-2.836,3-3.1V19h2v1.913A3.24,3.24,0,0,1,41.922,23.5l-2.052.54a1.751,1.751,0,0,0-1.893-1.434,1.4,1.4,0,0,0-1.642,1.2,1.152,1.152,0,0,0,1.14,1.032l1.5,0.325c2.082,0.432,3.06,1.588,3.06,2.978,0,1.419-1.037,2.73-3.037,3.023V33H37Z"  class="" style=""/>
+    <g class="" style="">
+      <path d="M45,15H19.941A9,9,0,1,0,4,21.645V40a1,1,0,0,0,1,1H42V39H6V23.478a8.959,8.959,0,0,0,2,1V36a1,1,0,0,0,1,1H45a1,1,0,0,0,1-1V16A1,1,0,0,0,45,15ZM4,16a7,7,0,1,1,7,7A7.008,7.008,0,0,1,4,16ZM44,35H10V24.941A8.965,8.965,0,0,0,19.941,17H44V35Z"  class="" style=""/>
+      <polygon points="12 11 10 11 10 15.382 6.553 17.105 7.447 18.895 12 16.618 12 11"  class="" style=""/>
+    </g>
+  </g>
+
+    </symbol>
+  </defs>
+    <view id="default" viewBox="0 0 48 48"></view>
+    <use data-variant="default" xlink:href="#Icon-termDeposit" x="0" y="0" fill="#004346" />
+    <view id="primary" viewBox="0 48 48 48"></view>
+    <use data-variant="primary" xlink:href="#Icon-termDeposit" x="0" y="48" fill="#FFCD05" />
+    <view id="secondary" viewBox="0 96 48 48"></view>
+    <use data-variant="secondary" xlink:href="#Icon-termDeposit" x="0" y="96" fill="#478081" />
+    <view id="dark" viewBox="0 144 48 48"></view>
+    <use data-variant="dark" xlink:href="#Icon-termDeposit" x="0" y="144" fill="#004346" />
+    <view id="light" viewBox="0 192 48 48"></view>
+    <use data-variant="light" xlink:href="#Icon-termDeposit" x="0" y="192" fill="#FFFFFF" />
+    <view id="correct" viewBox="0 240 48 48"></view>
+    <use data-variant="correct" xlink:href="#Icon-termDeposit" x="0" y="240" fill="#00928A" />
+    <view id="error" viewBox="0 288 48 48"></view>
+    <use data-variant="error" xlink:href="#Icon-termDeposit" x="0" y="288" fill="#BD1903" />
+    <view id="text" viewBox="0 336 48 48"></view>
+    <use data-variant="text" xlink:href="#Icon-termDeposit" x="0" y="336" fill="#000000" />
+    <view id="neutral" viewBox="0 384 48 48"></view>
+    <use data-variant="neutral" xlink:href="#Icon-termDeposit" x="0" y="384" fill="#F5F3F1" />
+    <view id="highlight" viewBox="0 432 48 48"></view>
+    <use data-variant="highlight" xlink:href="#Icon-termDeposit" x="0" y="432" fill="#FF6400" />
+    <view id="border" viewBox="0 480 48 48"></view>
+    <use data-variant="border" xlink:href="#Icon-termDeposit" x="0" y="480" fill="#cdcbc3" />
+    <view id="disabled" viewBox="0 528 48 48"></view>
+    <use data-variant="disabled" xlink:href="#Icon-termDeposit" x="0" y="528" fill="#737373" />
+</svg>

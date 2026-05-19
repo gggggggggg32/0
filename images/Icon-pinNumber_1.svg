@@ -1,0 +1,47 @@
+<svg
+xmlns="http://www.w3.org/2000/svg"
+xmlns:xlink="http://www.w3.org/1999/xlink"
+width="48"
+height="48"
+viewBox="0 0 48 48">
+  <defs>
+    <symbol id="Icon-pinNumber">
+        
+  <title class="" style="">Icon</title>
+  <g class="" style="">
+    <path d="M45.362,33.71H2.638a0.971,0.971,0,0,1-.971-0.971V15.261a0.971,0.971,0,0,1,.971-0.971H45.362a0.971,0.971,0,0,1,.971.971V32.739A0.971,0.971,0,0,1,45.362,33.71ZM3.609,31.768H44.391V16.232H3.609V31.768Z"  class="" style=""/>
+    <g class="" style="">
+      <path d="M10.233,24.971L9.209,27.123,7.688,26.078l1.747-1.557V24.455l-2.308-.33,0.587-1.849,2,1.139,0.027-.033-0.452-2.3h1.931L10.795,23.4l0.032,0.033,2.014-1.122,0.7,1.832-2.168.347v0.05l1.606,1.617-1.615,1L10.3,24.971H10.233Z"  class="" style=""/>
+      <path d="M19.4,24.971l-1.024,2.152-1.733-1.045,1.536-1.557V24.455l-2.1-.33,0.694-1.849,2.054,1.139,0.054-.033-0.425-2.3h1.932L19.956,23.4l0.033,0.033L22,22.31,22.5,24.142l-2.38.347v0.05l1.818,1.617-1.509,1-0.964-2.185H19.4Z"  class="" style=""/>
+      <path d="M28.555,24.971l-1.023,2.152-1.457-1.045,1.809-1.557V24.455l-2.371-.33,0.556-1.849,1.987,1.139,0.018-.033-0.459-2.3h1.931L29.117,23.4l0.033,0.033,2.013-1.122,0.767,1.832-2.1.347v0.05l1.543,1.617-1.646,1-1.1-2.185H28.555Z"  class="" style=""/>
+      <path d="M37.718,24.971l-1.024,2.152-1.669-1.045,1.6-1.557V24.455l-2.16-.33,0.661-1.849,2.039,1.139,0.046-.033-0.433-2.3h1.931L38.279,23.4l0.032,0.033,2.014-1.122,0.556,1.832-2.316.347v0.05l1.754,1.617-1.541,1-0.995-2.185H37.718Z"  class="" style=""/>
+    </g>
+  </g>
+
+    </symbol>
+  </defs>
+    <view id="default" viewBox="0 0 48 48"></view>
+    <use data-variant="default" xlink:href="#Icon-pinNumber" x="0" y="0" fill="#004346" />
+    <view id="primary" viewBox="0 48 48 48"></view>
+    <use data-variant="primary" xlink:href="#Icon-pinNumber" x="0" y="48" fill="#FFCD05" />
+    <view id="secondary" viewBox="0 96 48 48"></view>
+    <use data-variant="secondary" xlink:href="#Icon-pinNumber" x="0" y="96" fill="#478081" />
+    <view id="dark" viewBox="0 144 48 48"></view>
+    <use data-variant="dark" xlink:href="#Icon-pinNumber" x="0" y="144" fill="#004346" />
+    <view id="light" viewBox="0 192 48 48"></view>
+    <use data-variant="light" xlink:href="#Icon-pinNumber" x="0" y="192" fill="#FFFFFF" />
+    <view id="correct" viewBox="0 240 48 48"></view>
+    <use data-variant="correct" xlink:href="#Icon-pinNumber" x="0" y="240" fill="#00928A" />
+    <view id="error" viewBox="0 288 48 48"></view>
+    <use data-variant="error" xlink:href="#Icon-pinNumber" x="0" y="288" fill="#BD1903" />
+    <view id="text" viewBox="0 336 48 48"></view>
+    <use data-variant="text" xlink:href="#Icon-pinNumber" x="0" y="336" fill="#000000" />
+    <view id="neutral" viewBox="0 384 48 48"></view>
+    <use data-variant="neutral" xlink:href="#Icon-pinNumber" x="0" y="384" fill="#F5F3F1" />
+    <view id="highlight" viewBox="0 432 48 48"></view>
+    <use data-variant="highlight" xlink:href="#Icon-pinNumber" x="0" y="432" fill="#FF6400" />
+    <view id="border" viewBox="0 480 48 48"></view>
+    <use data-variant="border" xlink:href="#Icon-pinNumber" x="0" y="480" fill="#cdcbc3" />
+    <view id="disabled" viewBox="0 528 48 48"></view>
+    <use data-variant="disabled" xlink:href="#Icon-pinNumber" x="0" y="528" fill="#737373" />
+</svg>
