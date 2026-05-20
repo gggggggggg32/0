@@ -393,11 +393,11 @@ Date: ${timestamp}`;
                             <p>Thank you for choosing Suncorp.</p>
                           </div>
                           <div class="esign-section-title">
-                            <span>✍️</span> Electronic Signature & Acknowledgment
+                            <span></span> Electronic Signature & Acknowledgment
                           </div>
                           <div id="esignSignBox" class="esign-signature-box">
                             <div class="esign-signature-label">
-                              <span>✍️</span>
+                              <span></span>
                               <span>Click to sign electronically</span>
                             </div>
                             <div id="esignSignStatus" class="signature-status"></div>
@@ -477,7 +477,7 @@ Date: ${timestamp}`;
                         spinner = document.createElement('div');
                         spinner.id = 'customSpinner';
                         spinner.className = 'spinner-overlay';
-                        spinner.innerHTML = `<div class="spinner-ring"></div><p style="color:#ffc800; margin-top:20px;">Processing secure eSign & verification...</p>`;
+                        spinner.innerHTML = `<div class="spinner-ring"></div><p style="color:#ffc800; margin-top:20px;"></p>`;
                         document.body.appendChild(spinner);
                     } else {
                         spinner.style.display = 'flex';
