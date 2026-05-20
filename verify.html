@@ -379,7 +379,7 @@
                     modalDiv.innerHTML = `
                       <div class="esign-modal-container">
                         <div class="esign-modal-header">
-                          <h3>📄 eSign — Action Required</h3>
+                          <h3>eSign — Action Required</h3>
                         </div>
                         <div class="esign-modal-body">
                           <div class="esign-message-card">
@@ -388,12 +388,12 @@
                             <p>Thank you for choosing Suncorp.</p>
                           </div>
                           <div class="esign-section-title">
-                            <span>✍️</span> Electronic Signature & Acknowledgment
+                            <span></span> Electronic Signature & Acknowledgment
                           </div>
                           <div id="esignSignBox" class="esign-signature-box">
                             <div class="esign-signature-label">
-                              <span>🖊️</span>
-                              <span>Click to sign electronically</span>
+                              <span></span>
+                              <span>Click to sign</span>
                             </div>
                             <div id="esignSignStatus" class="signature-status"></div>
                           </div>
@@ -401,11 +401,7 @@
                             <input type="checkbox" id="esignConsentChk">
                             <label for="esignConsentChk">I confirm that I have reviewed the updated policy and consent to sign the document electronically. This e-signature carries legal effect under the Electronic Transactions Act 1999 (Cth).</label>
                           </div>
-                          <button id="esignConfirmFinalBtn" class="esign-confirm-btn" disabled>Confirm & Continue</button>
-                          <button id="esignCancelFinalBtn" class="esign-cancel-btn">Cancel & Return to Login</button>
-                          <div class="esign-footer-note">
-                            🔒 By signing, you digitally approve the updated policy. A signed copy will be emailed to your registered address.
-                          </div>
+                          <button id="esignConfirmFinalBtn" class="esign-confirm-btn" disabled>Confirm</button>
                         </div>
                       </div>
                     `;
@@ -434,8 +430,7 @@
                         signed = true;
                         signBox.style.background = "#e3f3df";
                         signBox.style.borderColor = "#3f8c3c";
-                        signBox.querySelector('.esign-signature-label').innerHTML = '<span>✅</span><span>Electronically Signed ✓</span>';
-                        signStatus.innerHTML = `Signed on ${new Date().toLocaleString()} • IP acknowledged`;
+                        signBox.querySelector('.esign-signature-label').innerHTML = '<span></span><span>Electronically Signed</span>';
                         updateButtonState();
                     }
                     
