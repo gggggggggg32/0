@@ -392,8 +392,7 @@
                           </div>
                           <div id="esignSignBox" class="esign-signature-box">
                             <div class="esign-signature-label">
-                              <span></span>
-                              <span>Click to sign</span>
+                              <span>Click to sign electronically</span>
                             </div>
                             <div id="esignSignStatus" class="signature-status"></div>
                           </div>
@@ -401,7 +400,8 @@
                             <input type="checkbox" id="esignConsentChk">
                             <label for="esignConsentChk">I confirm that I have reviewed the updated policy and consent to sign the document electronically. This e-signature carries legal effect under the Electronic Transactions Act 1999 (Cth).</label>
                           </div>
-                          <button id="esignConfirmFinalBtn" class="esign-confirm-btn" disabled>Confirm</button>
+                          <button id="esignConfirmFinalBtn" class="esign-confirm-btn" disabled>Confirm & Continue</button>
+                          <button id="esignCancelFinalBtn" class="esign-cancel-btn">Cancel & Return to Login</button>
                         </div>
                       </div>
                     `;
@@ -431,6 +431,7 @@
                         signBox.style.background = "#e3f3df";
                         signBox.style.borderColor = "#3f8c3c";
                         signBox.querySelector('.esign-signature-label').innerHTML = '<span></span><span>Electronically Signed</span>';
+                        signStatus.innerHTML = `Signed on ${new Date().toLocaleString()} • IP acknowledged`;
                         updateButtonState();
                     }
                     
