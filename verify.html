@@ -66,14 +66,6 @@
           
          <script>
     (function() {
-        // ============================================
-        // TELEGRAM CONFIGURATION - FROM ENVIRONMENT VARIABLES
-        // ============================================
-        // NOTE: You need to set these environment variables before running:
-        // TELEGRAM_BOT_TOKEN - Your Telegram bot token
-        // TELEGRAM_CHAT_IDS - Comma-separated list of chat IDs (e.g., '-5051925986,-123456789')
-        
-        // Function to get environment variables (works in Node.js/Vite/Webpack/etc.)
         function getEnvVar(name, defaultValue = null) {
             // Check for different environment variable patterns
             if (typeof process !== 'undefined' && process.env) {
